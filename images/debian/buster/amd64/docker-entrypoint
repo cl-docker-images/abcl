@@ -1,9 +1,8 @@
 #!/bin/sh
 
-# If the first arg starts with a hyphen, prepend java -jar abcl.jar to
-# arguments.
+# If the first arg starts with a hyphen, prepend abcl to arguments.
 if [ "${1#-}" != "$1" ]; then
-	set -- java -jar "/usr/local/lib/abcl-bin-$ABCL_VERSION/abcl.jar" "$@"
+	set -- abcl "$@"
 fi
 
 exec "$@"
