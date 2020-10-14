@@ -1,6 +1,0 @@
-image: daewok/abcl:$ABCL_VERSION-debian
-manifests:
-  - image: $DEBIAN_BUSTER_AMD64_NONBUILD_DIGEST
-    platform:
-      architecture: amd64
-      os: linux
