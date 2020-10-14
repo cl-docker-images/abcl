@@ -3,7 +3,7 @@
 
 * Supported Tags
 
-  + =1.7.0-debian-buster=, =1.7.0-debian=, =1.7.0=, =latest=
+  + =1.7.1-debian-buster=, =1.7.1-debian=, =1.7.1=, =latest=
 
 * Quick Reference
 

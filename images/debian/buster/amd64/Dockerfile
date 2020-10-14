@@ -2,7 +2,7 @@ FROM openjdk:8-buster
 
 LABEL maintainer="etimmons@mit.edu"
 
-ENV ABCL_VERSION=1.7.0
+ENV ABCL_VERSION=1.7.1
 
 WORKDIR /usr/local/src/
 
