@@ -13,6 +13,7 @@
   + Where to file issues for ABCL itself :: [[https://github.com/armedbear/abcl/issues]]
   + Maintained by :: [[https://github.com/daewok][Eric Timmons]] and the [[https://mers.csail.mit.edu/][MIT MERS Group]] (i.e., this is not an official ABCL image)
   + Supported platforms :: =linux/amd64=
+  + Previously known as :: =daewok/abcl=
 
 * What is ABCL?
 
