@@ -157,7 +157,7 @@ Bashbrew build - winamd64:
     key: $ARCH
 
 .Bashbrew push win:
-  stage: Push
+  stage: push
   variables:
     BASHBREW_NAMESPACE: $CANONICAL_NAMESPACE
     BASHBREW_LIBRARY: $CI_PROJECT_DIR
