@@ -49,7 +49,7 @@ stages:
       - cache
     key: $ARCH
 
-.Bashbrew build - amd64:
+Bashbrew build - amd64:
   extends: .Bashbrew build Linux
   variables:
     ARCH: amd64
@@ -62,7 +62,7 @@ stages:
     - bashbrew-amd64
 
 
-.Bashbrew build - arm64:
+Bashbrew build - arm64:
   extends: .Bashbrew build Linux
   variables:
     ARCH: arm64v8
@@ -74,7 +74,7 @@ stages:
   tags:
     - bashbrew-arm64v8
 
-.Bashbrew build - arm32v7:
+Bashbrew build - arm32v7:
   extends: .Bashbrew build Linux
   variables:
     ARCH: arm32v7
