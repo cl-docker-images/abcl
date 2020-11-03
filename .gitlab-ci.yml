@@ -32,7 +32,7 @@ stages:
                                             {{- $.DockerFroms . | join "\n" -}}
                                             {{- "\n" -}}
                                           {{- end -}}
-                                        {{- end -}}' $REPO \
+                                        {{- end -}}' $CI_PROJECT_NAME \
                  | { grep -vE '^$|^scratch$|^'"$CANONICAL_NAMESPACE/$CI_PROJECT_NAME"'(:|$)' || true; } \
                  | sort -u)"
     - echo "$parents"
@@ -43,7 +43,7 @@ stages:
       done
     - retry -t 3 -d 60 bashbrew build $CI_PROJECT_NAME
     - docker images
-    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $REPO
+    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
   cache:
     paths:
       - cache
