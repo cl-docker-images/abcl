@@ -81,7 +81,7 @@ Fixup manifest:
     PARENT_IMAGES: "openjdk:15-windowsservercore-1809;openjdk:11-windowsservercore-1809;openjdk:8-windowsservercore-1809;openjdk:15-windowsservercore-ltsc2016;openjdk:11-windowsservercore-ltsc2016;openjdk:8-windowsservercore-ltsc2016"
   script:
     - docker info
-    - mkdir -p cache
+    - New-Item cache -ItemType Directory -ea 0
     - cp "build/$CI_PROJECT_NAME" "$CI_PROJECT_NAME"
     # Make the user specify the parent images. I don't feel like figuring out
     # how to automatically figure them out using powershell.
@@ -167,7 +167,7 @@ Bashbrew build - winamd64:
     BASHBREW_ARCH: windows-amd64
   script:
     - docker info
-    - mkdir -p cache
+    - New-Item cache -ItemType Directory -ea 0
     - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $REPO
   cache:
     paths:
