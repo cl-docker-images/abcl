@@ -30,7 +30,7 @@ stages:
     - |
       echo "GitCommit: $CI_COMMIT_SHA" > "$CI_PROJECT_NAME"
     - |
-      echo "GitFetch: $CI_COMMIT_REF_NAME" >> "$CI_PROJECT_NAME"
+      echo "GitFetch: refs/heads/$CI_COMMIT_REF_NAME" >> "$CI_PROJECT_NAME"
     - cat "$CI_PROJECT_NAME.tmp" >> "$CI_PROJECT_NAME"
     - rm "$CI_PROJECT_NAME.tmp"
     - |
