@@ -174,4 +174,4 @@ Bashbrew put-shared:
   cache:
     paths:
       - cache
-    key: $ARCH
+    key: put-shared
