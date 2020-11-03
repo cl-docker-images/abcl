@@ -27,8 +27,10 @@ stages:
     - docker info
     - mkdir -p cache
     - mv "$CI_PROJECT_NAME" "$CI_PROJECT_NAME.tmp"
-    - echo "GitCommit: $CI_COMMIT_SHA" > "$CI_PROJECT_NAME"
-    - echo "GitFetch: $CI_COMMIT_REF_NAME" >> "$CI_PROJECT_NAME"
+    - |
+      echo "GitCommit: $CI_COMMIT_SHA" > "$CI_PROJECT_NAME"
+    - |
+      echo "GitFetch: $CI_COMMIT_REF_NAME" >> "$CI_PROJECT_NAME"
     - cat "$CI_PROJECT_NAME.tmp" >> "$CI_PROJECT_NAME"
     - rm "$CI_PROJECT_NAME.tmp"
     - |
