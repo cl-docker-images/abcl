@@ -2,8 +2,42 @@
 #+AUTHOR: Eric Timmons
 
 * Supported Tags
+** Simple Tags
 
-  + =1.7.1-debian-buster=, =1.7.1-debian=, =1.7.1=, =latest=
+   + =1.8.0-jdk15-buster=, =1.8.0-jdk-buster=, =1.8.0-buster=, =buster=, =jdk15-buster=, =jdk-buster=
+   + =1.8.0-jdk11-buster=, =jdk11-buster=
+   + =1.8.0-jdk8-buster=, =jdk8-buster=
+   + =1.8.0-jdk15-windowsservercore-1809=, =1.8.0-jdk-windowsservercore-1809=, =1.8.0-windowsservercore-1809=, =jdk15-windowsservercore-1809=, =jdk-windowsservercore-1809=
+   + =1.8.0-jdk11-windowsservercore-1809=, =jdk11-windowsservercore-1809=
+   + =1.8.0-jdk8-windowsservercore-1809=, =jdk8-windowsservercore-1809=
+   + =1.8.0-jdk15-windowsservercore-ltsc2016=, =1.8.0-jdk-windowsservercore-ltsc2016=, =1.8.0-windowsservercore-ltsc2016=, =jdk15-windowsservercore-ltsc2016=, =jdk-windowsservercore-ltsc2016=
+   + =1.8.0-jdk11-windowsservercore-ltsc2016=, =jdk11-windowsservercore-ltsc2016=
+   + =1.8.0-jdk8-windowsservercore-ltsc2016=, =jdk8-windowsservercore-ltsc2016=
+
+** Shared Tags
+
+   + =latest=, =latest-jdk=, =latest-jdk15=, =1.8.0=, =1.8.0=jdk=, =1.8.0-jdk15=
+     + =1.8.0-jdk15-buster=
+     + =1.8.0-jdk15-windowsservercore-1809=
+     + =1.8.0-jdk15-windowsservercore-ltsc2016=
+   + =latest-jdk11=, =1.8.0-jdk11=
+     + =1.8.0-jdk11-buster=
+     + =1.8.0-jdk11-windowsservercore-1809=
+     + =1.8.0-jdk11-windowsservercore-ltsc2016=
+   + =latest-jdk8=, =1.8.0-jdk8=
+     + =1.8.0-jdk8-buster=
+     + =1.8.0-jdk8-windowsservercore-1809=
+     + =1.8.0-jdk8-windowsservercore-ltsc2016=
+   + =1.8.0-jdk15-windowsservercore=, =1.8.0-jdk-windowsservercore=, =jdk15-windowsservercore=, =jdk-windowsservercore=, =windowsserrvercore=
+     + =1.8.0-jdk15-windowsservercore-1809=
+     + =1.8.0-jdk15-windowsservercore-ltsc2016=
+   + =1.8.0-jdk11-windowsservercore=, =jdk11-windowsservercore=
+     + =1.8.0-jdk11-windowsservercore-1809=
+     + =1.8.0-jdk11-windowsservercore-ltsc2016=
+   + =1.8.0-jdk8-windowsservercore=, =jdk8-windowsservercore=
+     + =1.8.0-jdk8-windowsservercore-1809=
+     + =1.8.0-jdk8-windowsservercore-ltsc2016=
+
 
 * Quick Reference
 
@@ -11,7 +45,7 @@
   + Where to file Docker image related issues :: [[https://github.com/cl-docker-images/abcl/]]
   + Where to file issues for ABCL itself :: [[https://github.com/armedbear/abcl/issues]]
   + Maintained by :: [[https://github.com/daewok][Eric Timmons]] and the [[https://mers.csail.mit.edu/][MIT MERS Group]] (i.e., this is not an official ABCL image)
-  + Supported platforms :: =linux/amd64=
+  + Supported platforms :: =linux/amd64=, =linux/arm64/v8=, =windows/amd64=
 
 * What is ABCL?
 
