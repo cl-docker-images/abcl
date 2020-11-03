@@ -171,3 +171,7 @@ Bashbrew put-shared:
     - retry -t 3 -d 60 -- bashbrew --arch-namespace amd64=${CANONICAL_NAMESPACE}amd64 --arch-namespace arm32v7=${CANONICAL_NAMESPACE}arm32v7 --arch-namespace arm64v8=${CANONICAL_NAMESPACE}arm64v8 --arch-namespace windows-amd64=${CANONICAL_NAMESPACE}winamd64 put-shared "$CI_PROJECT_NAME"
   tags:
     - bashbrew-amd64
+  cache:
+    paths:
+      - cache
+    key: $ARCH
