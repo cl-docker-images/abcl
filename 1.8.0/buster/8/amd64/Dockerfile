@@ -24,7 +24,7 @@ RUN set -x \
     && gpg --batch --verify "abcl-src-${ABCL_VERSION}.tar.gz.asc" "abcl-src-${ABCL_VERSION}.tar.gz" \
     && gunzip "abcl-src-${ABCL_VERSION}.tar.gz" \
     && tar xf "abcl-src-${ABCL_VERSION}.tar" \
-    && ( cd "abcl-src-${ABCL_VERSION}" && bash ./ci/create-abcl-properties.bash "openjdk${JAVA_VERSION%%.*}" && ant abcl ) \
+    && ( cd "abcl-src-${ABCL_VERSION}" && bash ./ci/create-abcl-properties.bash "openjdk8" && ant abcl ) \
     && ln -s "/usr/local/src/abcl-src-$ABCL_VERSION/abcl" /usr/local/bin/abcl \
     && rm -rf "abcl-src-${ABCL_VERSION}.tar.gz.asc" "abcl-src-${ABCL_VERSION}.tar" "$GNUPGHOME" \
     && apt-get remove -y curl ca-certificates gnupg dirmngr ant \
