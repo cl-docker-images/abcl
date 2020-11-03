@@ -1,0 +1,21 @@
+Maintainers: Eric Timmons <etimmons@mit.edu> (@daewok)
+GitRepo: https://gitlab.common-lisp.net/cl-docker-images/abcl.git
+
+# Debian Buster
+
+Tags: 1.8.0-buster-15, 1.8.0-buster, 1.8.0-debian-15, 1.8.0-debian
+SharedTags: 1.8.0, latest, 1.8.0-15
+Architectures: amd64, arm64v8
+amd64-Directory: 1.8.0/buster/15/amd64
+arm64v8-Directory: 1.8.0/buster/15/arm64
+
+Tags: 1.8.0-buster-11, 1.8.0-debian-11
+SharedTags: 1.8.0-11
+Architectures: amd64, arm64v8
+amd64-Directory: 1.8.0/buster/11/amd64
+arm64v8-Directory: 1.8.0/buster/11/arm64
+
+Tags: 1.8.0-buster-8, 1.8.0-debian-8
+SharedTags: 1.8.0-8
+Architectures: amd64
+amd64-Directory: 1.8.0/buster/8/amd64

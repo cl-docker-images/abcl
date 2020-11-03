@@ -1,0 +1,87 @@
+include:
+  - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
+
+stages:
+  - build
+  - push
+  - put shared
+  - readme
+
+# Set these vars:
+# - CANONICAL_NAMESPACE
+# - CL_DOCKER_IMAGES_AMD64
+# - CL_DOCKER_IMAGES_ARM64V8
+# - CL_DOCKER_IMAGES_ARM32V7
+
+##############################################################################
+# Build Templates
+
+.Bashbrew build Linux:
+  stage: build
+  variables:
+    BASHBREW_NAMESPACE: $CANONICAL_NAMESPACE
+    BASHBREW_LIBRARY: $CI_PROJECT_DIR
+    BASHBREW_CACHE: $CI_PROJECT_DIR/cache/bashbrew
+    BASHBREW_DEBUG: "true"
+  script:
+    - docker info
+    - mkdir -p cache
+    - |
+      parents="$(bashbrew cat --format '{{- range $.Entries -}}
+                                          {{- if not ($.SkipConstraints .) -}}
+                                            {{- $.DockerFroms . | join "\n" -}}
+                                            {{- "\n" -}}
+                                          {{- end -}}
+                                        {{- end -}}' $REPO \
+                 | { grep -vE '^$|^scratch$|^'"$CANONICAL_NAMESPACE/$CI_PROJECT_NAME"'(:|$)' || true; } \
+                 | sort -u)"
+    - echo "$parents"
+    - |
+      for parent in $parents; do
+        echo "Pulling $parent"
+        docker pull --platform=$DOCKER_PLATFORM "$parent"
+      done
+    - retry -t 3 -d 60 bashbrew build $CI_PROJECT_NAME
+    - docker images
+    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $REPO
+  cache:
+    paths:
+      - cache
+    key: $ARCH
+
+.Bashbrew build - amd64:
+  extends: .Bashbrew build Linux
+  variables:
+    ARCH: amd64
+    BASHBREW_ARCH: amd64
+    BASHBREW_TARGET_NAMESPACE: mitmersamd64
+    DOCKER_PLATFORM: linux/amd64
+  rules:
+    - if: $CL_DOCKER_IMAGES_AMD64
+  tags:
+    - bashbrew-amd64
+
+
+.Bashbrew build - arm64:
+  extends: .Bashbrew build Linux
+  variables:
+    ARCH: arm64v8
+    BASHBREW_ARCH: arm64v8
+    BASHBREW_TARGET_NAMESPACE: mitmersarm64v8
+    DOCKER_PLATFORM: linux/arm64
+  rules:
+    - if: $CL_DOCKER_IMAGES_ARM64V8
+  tags:
+    - bashbrew-arm64v8
+
+.Bashbrew build - arm32v7:
+  extends: .Bashbrew build Linux
+  variables:
+    ARCH: arm32v7
+    BASHBREW_ARCH: arm32v7
+    BASHBREW_TARGET_NAMESPACE: mitmersarm32v7
+    DOCKER_PLATFORM: linux/arm/v7
+  rules:
+    - if: $CL_DOCKER_IMAGES_ARM32V7
+  tags:
+    - bashbrew-arm32v7
