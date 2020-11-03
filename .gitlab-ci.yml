@@ -166,7 +166,7 @@ Bashbrew build - winamd64:
     BASHBREW_ARCH: windows-amd64
   script:
     - docker info
-    - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $REPO
+    - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $CI_PROJECT_NAME
   cache:
     paths:
       - cache
