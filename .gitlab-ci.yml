@@ -63,7 +63,7 @@ Fixup manifest:
       done
     - retry -t 3 -d 60 -- bashbrew build $CI_PROJECT_NAME
     - docker images
-    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
+    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID $CI_PROJECT_NAME
   cache:
     paths:
       - cache
@@ -88,7 +88,7 @@ Fixup manifest:
     - foreach ($parent in $parentArray){ docker pull $parent }
     - bashbrew build $CI_PROJECT_NAME
     - docker images
-    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
+    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID $CI_PROJECT_NAME
   cache:
     paths:
       - cache
@@ -149,6 +149,7 @@ Bashbrew build - winamd64:
     - docker info
     - mkdir -p cache
     - cp "build/$CI_PROJECT_NAME" "$CI_PROJECT_NAME"
+    - bashbrew tag --namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
     - retry -t 3 -d 60 -- bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $CI_PROJECT_NAME
   cache:
     paths:
@@ -167,6 +168,7 @@ Bashbrew build - winamd64:
   script:
     - docker info
     - cp "build/$CI_PROJECT_NAME" "$CI_PROJECT_NAME"
+    - bashbrew tag --namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
     - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $CI_PROJECT_NAME
   cache:
     paths:
