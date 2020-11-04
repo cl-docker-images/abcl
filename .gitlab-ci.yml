@@ -1,5 +1,5 @@
 include:
-  - template: 'Workflows/MergeRequest-Pipelines.gitlab-ci.yml'
+  - template: 'Workflows/Branch-Pipelines.gitlab-ci.yml'
 
 stages:
   - fixup manifest
