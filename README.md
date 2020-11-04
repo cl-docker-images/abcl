@@ -1,19 +1,19 @@
-- [Supported Tags](#org72d9999)
-  - [Simple Tags](#org5de60cd)
-  - [Shared Tags](#orgd20b71f)
-- [Quick Reference](#org25efc82)
-- [What is ABCL?](#org4109770)
-- [What's in the image?](#orgfe6bbac)
-- [License](#orgca9bdd0)
+- [Supported Tags](#org4bcb36c)
+  - [Simple Tags](#org8ec3ab1)
+  - [Shared Tags](#orgfbf69a8)
+- [Quick Reference](#org9955b16)
+- [What is ABCL?](#org0191a6b)
+- [What's in the image?](#orgb209317)
+- [License](#org2b305be)
 
 
 
-<a id="org72d9999"></a>
+<a id="org4bcb36c"></a>
 
 # Supported Tags
 
 
-<a id="org5de60cd"></a>
+<a id="org8ec3ab1"></a>
 
 ## Simple Tags
 
@@ -28,7 +28,7 @@
 -   `1.8.0-jdk8-windowsservercore-ltsc2016`, `jdk8-windowsservercore-ltsc2016`
 
 
-<a id="orgd20b71f"></a>
+<a id="orgfbf69a8"></a>
 
 ## Shared Tags
 
@@ -55,7 +55,7 @@
     -   `1.8.0-jdk8-windowsservercore-ltsc2016`
 
 
-<a id="org25efc82"></a>
+<a id="org9955b16"></a>
 
 # Quick Reference
 
@@ -66,7 +66,7 @@
 -   **Supported platforms:** `linux/amd64`, `linux/arm64/v8`, `windows/amd64`
 
 
-<a id="org4109770"></a>
+<a id="org0191a6b"></a>
 
 # What is ABCL?
 
@@ -75,14 +75,14 @@ From [ABCL's Home Page](https://abcl.org)
 > Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp language featuring both an interpreter and a compiler, running in the JVM. Originally started to be a scripting language for the J editor, it now supports JSR-223 (Java scripting API): it can be a scripting engine in any Java application. Additionally, it can be used to implement (parts of) the application using Java to Lisp integration APIs.
 
 
-<a id="orgfe6bbac"></a>
+<a id="orgb209317"></a>
 
 # What's in the image?
 
 This image contains ABCL binaries released by the upstream devs.
 
 
-<a id="orgca9bdd0"></a>
+<a id="org2b305be"></a>
 
 # License
 
