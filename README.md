@@ -1,19 +1,19 @@
-- [Supported Tags](#org39e49ed)
-  - [Simple Tags](#org02a9acf)
-  - [Shared Tags](#org1a45e07)
-- [Quick Reference](#org2d8cf17)
-- [What is ABCL?](#org346aff9)
-- [What's in the image?](#org6cc8101)
-- [License](#orgeca6552)
+- [Supported Tags](#orgf2a9b23)
+  - [Simple Tags](#orgbd05152)
+  - [Shared Tags](#orgefec492)
+- [Quick Reference](#org2117a5e)
+- [What is ABCL?](#org09ff687)
+- [What's in the image?](#org5d421d8)
+- [License](#orge571e25)
 
 
 
-<a id="org39e49ed"></a>
+<a id="orgf2a9b23"></a>
 
 # Supported Tags
 
 
-<a id="org02a9acf"></a>
+<a id="orgbd05152"></a>
 
 ## Simple Tags
 
@@ -28,7 +28,7 @@
 -   `1.8.0-jdk8-windowsservercore-ltsc2016`, `jdk8-windowsservercore-ltsc2016`
 
 
-<a id="org1a45e07"></a>
+<a id="orgefec492"></a>
 
 ## Shared Tags
 
@@ -55,18 +55,18 @@
     -   `1.8.0-jdk8-windowsservercore-ltsc2016`
 
 
-<a id="org2d8cf17"></a>
+<a id="org2117a5e"></a>
 
 # Quick Reference
 
 -   **ABCL Home Page:** <https://abcl.org/>
--   **Where to file Docker image related issues:** <https://gitlab.common-lisp.org/cl-docker-images/abcl/>
+-   **Where to file Docker image related issues:** <https://gitlab.common-lisp.net/cl-docker-images/abcl/>
 -   **Where to file issues for ABCL itself:** <https://github.com/armedbear/abcl/issues>
 -   **Maintained by:** [Eric Timmons](https://github.com/daewok) and the [MIT MERS Group](https://mers.csail.mit.edu/) (i.e., this is not an official ABCL image)
 -   **Supported platforms:** `linux/amd64`, `linux/arm64/v8`, `windows/amd64`
 
 
-<a id="org346aff9"></a>
+<a id="org09ff687"></a>
 
 # What is ABCL?
 
@@ -75,14 +75,14 @@ From [ABCL's Home Page](https://abcl.org)
 > Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp language featuring both an interpreter and a compiler, running in the JVM. Originally started to be a scripting language for the J editor, it now supports JSR-223 (Java scripting API): it can be a scripting engine in any Java application. Additionally, it can be used to implement (parts of) the application using Java to Lisp integration APIs.
 
 
-<a id="org6cc8101"></a>
+<a id="org5d421d8"></a>
 
 # What's in the image?
 
 This image contains ABCL binaries released by the upstream devs.
 
 
-<a id="orgeca6552"></a>
+<a id="orge571e25"></a>
 
 # License
 

@@ -42,7 +42,7 @@
 * Quick Reference
 
   + ABCL Home Page :: [[https://abcl.org/]]
-  + Where to file Docker image related issues :: [[https://gitlab.common-lisp.org/cl-docker-images/abcl/]]
+  + Where to file Docker image related issues :: [[https://gitlab.common-lisp.net/cl-docker-images/abcl/]]
   + Where to file issues for ABCL itself :: [[https://github.com/armedbear/abcl/issues]]
   + Maintained by :: [[https://github.com/daewok][Eric Timmons]] and the [[https://mers.csail.mit.edu/][MIT MERS Group]] (i.e., this is not an official ABCL image)
   + Supported platforms :: =linux/amd64=, =linux/arm64/v8=, =windows/amd64=
