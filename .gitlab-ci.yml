@@ -166,7 +166,6 @@ Bashbrew build - winamd64:
     BASHBREW_ARCH: windows-amd64
   script:
     - docker info
-    - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
     - cp "build/$CI_PROJECT_NAME" "$CI_PROJECT_NAME"
     - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $CI_PROJECT_NAME
   cache:
