@@ -21,39 +21,39 @@ IFS=$'\n'; versions=( $(echo "${versions[*]}" | sort -rV) ); unset IFS
 
 # get the most recent commit which modified any of "$@"
 fileCommit() {
-	git log -1 --format='format:%H' HEAD -- "$@"
+    git log -1 --format='format:%H' HEAD -- "$@"
 }
 
 # get the most recent commit which modified "$1/Dockerfile" or any file COPY'd from "$1/Dockerfile"
 dirCommit() {
-	local dir="$1"; shift
-	(
-		cd "$dir"
-		fileCommit \
-			Dockerfile \
-			$(git show HEAD:./Dockerfile | awk '
-				toupper($1) == "COPY" {
-					for (i = 2; i < NF; i++) {
-						print $i
-					}
-				}
-			')
-	)
+    local dir="$1"; shift
+    (
+        cd "$dir"
+        fileCommit \
+            Dockerfile \
+            $(git show HEAD:./Dockerfile | awk '
+                toupper($1) == "COPY" {
+                    for (i = 2; i < NF; i++) {
+                        print $i
+                    }
+                }
+            ')
+    )
 }
 
 getArches() {
-	local repo="$1"; shift
-	local officialImagesUrl='https://github.com/docker-library/official-images/raw/master/library/'
+    local repo="$1"; shift
+    local officialImagesUrl='https://github.com/docker-library/official-images/raw/master/library/'
 
-	eval "declare -g -A parentRepoToArches=( $(
-		find -name 'Dockerfile' -exec awk '
-				toupper($1) == "FROM" && $2 !~ /^('"$repo"'|scratch|.*\/.*)(:|$)/ {
-					print "'"$officialImagesUrl"'" $2
-				}
-			' '{}' + \
-			| sort -u \
-			| xargs bashbrew cat --format '[{{ .RepoName }}:{{ .TagName }}]="{{ join " " .TagEntry.Architectures }}"'
-	) )"
+    eval "declare -g -A parentRepoToArches=( $(
+        find -name 'Dockerfile' -exec awk '
+                toupper($1) == "FROM" && $2 !~ /^('"$repo"'|scratch|.*\/.*)(:|$)/ {
+                    print "'"$officialImagesUrl"'" $2
+                }
+            ' '{}' + \
+            | sort -u \
+            | xargs bashbrew cat --format '[{{ .RepoName }}:{{ .TagName }}]="{{ join " " .TagEntry.Architectures }}"'
+    ) )"
 }
 getArches 'abcl'
 
@@ -65,14 +65,14 @@ EOH
 
 # prints "$2$1$3$1...$N"
 join() {
-	local sep="$1"; shift
-	local out; printf -v out "${sep//%/%%}%s" "$@"
-	echo "${out#$sep}"
+    local sep="$1"; shift
+    local out; printf -v out "${sep//%/%%}%s" "$@"
+    echo "${out#$sep}"
 }
 
 for version in "${versions[@]}"; do
 
-	for v in \
+    for v in \
         buster/{jdk-15,jdk-11,jdk-8} \
         windowsservercore-{1809,ltsc2016}/{jdk-15,jdk-11,jdk-8} \
     ; do
@@ -82,25 +82,25 @@ for version in "${versions[@]}"; do
         javaType="${javaVariant%-*}"
         dir="$version/$v"
 
-		[ -f "$dir/Dockerfile" ] || continue
+        [ -f "$dir/Dockerfile" ] || continue
 
-		commit="$(dirCommit "$dir")"
+        commit="$(dirCommit "$dir")"
 
-		versionAliases=(
-			$version
-			${aliases[$version]:-}
-		)
+        versionAliases=(
+            $version
+            ${aliases[$version]:-}
+        )
 
-		variantAliases=( "${versionAliases[@]/%/-$javaType$javaVersion-$os}" )
+        variantAliases=( "${versionAliases[@]/%/-$javaType$javaVersion-$os}" )
         variantAliases=( "${variantAliases[@]//latest-/}" )
 
-		case "$os" in
-			windows*) variantArches='windows-amd64' ;;
-			*)
-				variantParent="$(awk 'toupper($1) == "FROM" { print $2 }' "$dir/Dockerfile")"
-				variantArches="${parentRepoToArches[$variantParent]}"
-				;;
-		esac
+        case "$os" in
+            windows*) variantArches='windows-amd64' ;;
+            *)
+                variantParent="$(awk 'toupper($1) == "FROM" { print $2 }' "$dir/Dockerfile")"
+                variantArches="${parentRepoToArches[$variantParent]}"
+                ;;
+        esac
 
         if [ "$javaVersion" = "$defaultJavaVersion" ]; then
             variantAliases+=( "${versionAliases[@]/%/-$javaType-$os}" )
@@ -108,10 +108,10 @@ for version in "${versions[@]}"; do
             variantAliases=( "${variantAliases[@]//latest-/}" )
         fi
 
-		sharedTags=()
+        sharedTags=()
 
-		if [ "$os" = "$defaultDebianSuite" ] || [[ "$os" == 'windowsservercore'* ]]; then
-			sharedTags+=( "${versionAliases[@]/%/-$javaType$javaVersion}" )
+        if [ "$os" = "$defaultDebianSuite" ] || [[ "$os" == 'windowsservercore'* ]]; then
+            sharedTags+=( "${versionAliases[@]/%/-$javaType$javaVersion}" )
             if [ "$javaVersion" = "$defaultJavaVersion" ]; then
                 sharedTags+=( "${versionAliases[@]/%/-$javaType}" )
                 sharedTags+=( "${versionAliases[@]}" )
@@ -120,20 +120,20 @@ for version in "${versions[@]}"; do
             if [[ "$os" == "windowsservercore"* ]]; then
                 sharedTags+=( "${sharedTags[@]/%/-windowsservercore}")
             fi
-		fi
+        fi
 
         sharedTags=( "${sharedTags[@]//latest-/}" )
 
-		echo
-		echo "Tags: $(join ', ' "${variantAliases[@]}")"
-		if [ "${#sharedTags[@]}" -gt 0 ]; then
-			echo "SharedTags: $(join ', ' "${sharedTags[@]}")"
-		fi
-		cat <<-EOE
+        echo
+        echo "Tags: $(join ', ' "${variantAliases[@]}")"
+        if [ "${#sharedTags[@]}" -gt 0 ]; then
+            echo "SharedTags: $(join ', ' "${sharedTags[@]}")"
+        fi
+        cat <<-EOE
 			Architectures: $(join ', ' $variantArches)
 			GitCommit: $commit
 			Directory: $dir
 		EOE
-		[[ "$os" == "windows"* ]] && echo "Constraints: $os"
-	done
+        [[ "$os" == "windows"* ]] && echo "Constraints: $os"
+    done
 done
