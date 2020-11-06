@@ -1,80 +1,54 @@
 #+TITLE: ABCL Docker Images
-#+AUTHOR: Eric Timmons
 
-* Supported Tags
-** Simple Tags
+This project contains Docker images to build ABCL and the infrastructure to
+build the images as well as generate the manifest needed for inclusion in the
+[[https://docs.docker.com/docker-hub/official_images/][Docker Official Images program]].
 
-   + =1.8.0-jdk15-buster=, =1.8.0-jdk-buster=, =1.8.0-buster=, =buster=, =jdk15-buster=, =jdk-buster=
-   + =1.8.0-jdk11-buster=, =jdk11-buster=
-   + =1.8.0-jdk8-buster=, =jdk8-buster=
-   + =1.8.0-jdk15-windowsservercore-1809=, =1.8.0-jdk-windowsservercore-1809=, =1.8.0-windowsservercore-1809=, =jdk15-windowsservercore-1809=, =jdk-windowsservercore-1809=
-   + =1.8.0-jdk11-windowsservercore-1809=, =jdk11-windowsservercore-1809=
-   + =1.8.0-jdk8-windowsservercore-1809=, =jdk8-windowsservercore-1809=
-   + =1.8.0-jdk15-windowsservercore-ltsc2016=, =1.8.0-jdk-windowsservercore-ltsc2016=, =1.8.0-windowsservercore-ltsc2016=, =jdk15-windowsservercore-ltsc2016=, =jdk-windowsservercore-ltsc2016=
-   + =1.8.0-jdk11-windowsservercore-ltsc2016=, =jdk11-windowsservercore-ltsc2016=
-   + =1.8.0-jdk8-windowsservercore-ltsc2016=, =jdk8-windowsservercore-ltsc2016=
+This repository is mirrored between both
+[[https://gitlab.common-lisp.net/cl-docker-images/abcl]] and
+[[https://github.com/cl-docker-images/abcl]]. The ABCL documentation for the
+official images program is found on the =abcl= branch of
+[[https://gitlab.common-lisp.net/cl-docker-images/docs]] (also mirrored to
+Github). The ABCL manifest is found on the =abcl= branch of
+[[https://gitlab.common-lisp.net/cl-docker-images/official-images]] (also mirrored
+to Github).
 
-** Shared Tags
+* Unofficial images
 
-   + =latest=, =latest-jdk=, =latest-jdk15=, =1.8.0=, =1.8.0=jdk=, =1.8.0-jdk15=
-     + =1.8.0-jdk15-buster=
-     + =1.8.0-jdk15-windowsservercore-1809=
-     + =1.8.0-jdk15-windowsservercore-ltsc2016=
-   + =latest-jdk11=, =1.8.0-jdk11=
-     + =1.8.0-jdk11-buster=
-     + =1.8.0-jdk11-windowsservercore-1809=
-     + =1.8.0-jdk11-windowsservercore-ltsc2016=
-   + =latest-jdk8=, =1.8.0-jdk8=
-     + =1.8.0-jdk8-buster=
-     + =1.8.0-jdk8-windowsservercore-1809=
-     + =1.8.0-jdk8-windowsservercore-ltsc2016=
-   + =1.8.0-jdk15-windowsservercore=, =1.8.0-jdk-windowsservercore=, =jdk15-windowsservercore=, =jdk-windowsservercore=, =windowsserrvercore=
-     + =1.8.0-jdk15-windowsservercore-1809=
-     + =1.8.0-jdk15-windowsservercore-ltsc2016=
-   + =1.8.0-jdk11-windowsservercore=, =jdk11-windowsservercore=
-     + =1.8.0-jdk11-windowsservercore-1809=
-     + =1.8.0-jdk11-windowsservercore-ltsc2016=
-   + =1.8.0-jdk8-windowsservercore=, =jdk8-windowsservercore=
-     + =1.8.0-jdk8-windowsservercore-1809=
-     + =1.8.0-jdk8-windowsservercore-ltsc2016=
+  Currently, all images defined on the =master= branch are built and pushed to
+  =daewok/abcl= on Docker Hub. This allows the images to be used and tested
+  before they make their way into Official Images namepsace.
 
+* Releasing a new version
 
-* Quick Reference
+  When a new version of ABCL is released, perform the following steps:
 
-  + ABCL Home Page :: [[https://abcl.org/]]
-  + Where to file Docker image related issues :: [[https://gitlab.common-lisp.net/cl-docker-images/abcl/]]
-  + Where to file issues for ABCL itself :: [[https://github.com/armedbear/abcl/issues]]
-  + Maintained by :: [[https://github.com/daewok][Eric Timmons]] and the [[https://mers.csail.mit.edu/][MIT MERS Group]] (i.e., this is not an official ABCL image)
-  + Supported platforms :: =linux/amd64=, =linux/arm64/v8=, =windows/amd64=
+  1. Run the following command to generate the Dockerfiles:
 
-* What is ABCL?
+     #+begin_src shell
+       ./update.sh $ABCL_VERSION_NUMBER
+     #+end_src
 
-  From [[https://abcl.org][ABCL's Home Page]]
+  2. Remove all folders for ABCL versions that are no longer
+     supported. Reminder: the corresponding tags are *not* removed from
+     Dockerhub, they will just no longer be automatically built.
 
-  #+begin_quote
-  Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp
-  language featuring both an interpreter and a compiler, running in the
-  JVM. Originally started to be a scripting language for the J editor, it now
-  supports JSR-223 (Java scripting API): it can be a scripting engine in any
-  Java application. Additionally, it can be used to implement (parts of) the
-  application using Java to Lisp integration APIs.
-  #+end_quote
+  3. Update the version aliases as necessary in
+     [[file:generate-stackbrew-library.sh]].
 
-* What's in the image?
+  4. Open a merge request on
+     [[https://gitlab.common-lisp.net/cl-docker-images/abcl]] (preferred) or
+     [[https://github.com/cl-docker-images/abcl]].
 
-  This image contains ABCL binaries released by the upstream devs.
+* Promoting a version to the Official Images Library
 
-* License
+  1. Checkout the latest version of the =abcl= branch of
+     [[https://gitlab.common-lisp.net/cl-docker-images/official-images]].
 
-  ABCL is licensed under the [[https://www.gnu.org/copyleft/gpl.html][GNU GPL]] with [[https://www.gnu.org/software/classpath/license.html][Classpath exception]].
+  2. Run the following command:
 
-  The Dockerfiles used to build the images are licensed under BSD-2-Clause.
+     #+begin_src shell
+       ./generate-stackbrew-library.sh > $PATH_TO_OFFICIAL_IMAGES/library/abcl
+     #+end_src
 
-  As with all Docker images, these likely also contain other software which may
-  be under other licenses (such as Bash, etc from the base distribution, along
-  with any direct or indirect dependencies of the primary software being
-  contained).
-
-  As for any pre-built image usage, it is the image user's responsibility to
-  ensure that any use of this image complies with any relevant licenses for all
-  software contained within.
+  3. Open a merge request with the change.
