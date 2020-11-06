@@ -23,10 +23,8 @@ stages:
 # Fixup manifest
 
 Generate manifest:
-  image: alpine:latest
   stage: generate manifest
   script:
-    - apk add git bash
     - mkdir -p build
     - |
       echo "GitFetch: refs/heads/$CI_COMMIT_REF_NAME" > "build/$CI_PROJECT_NAME"
@@ -36,6 +34,8 @@ Generate manifest:
   artifacts:
     paths:
       - build/
+  tags:
+      - bashbrew-amd64
 
 
 ##############################################################################
