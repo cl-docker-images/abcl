@@ -23,7 +23,7 @@ stages:
 # Fixup manifest
 
 Generate manifest:
-  image: alpine:latest
+  image: debian:latest
   stage: generate manifest
   script:
     - mkdir -p build
