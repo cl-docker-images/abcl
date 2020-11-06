@@ -28,5 +28,5 @@ RUN $ABCL_URL=('https://abcl.org/releases/{0}/abcl-bin-{0}.zip' -f $env:ABCL_VER
     $machineKey.SetValue('PATH', $newPath, 'ExpandString'); \
     $machineKey.Close();
 
-COPY abcl.bat C:\\abcl\\abcl.bat
+COPY abcl-wrapper.bat C:\\abcl\\abcl.bat
 CMD ["abcl.bat"]

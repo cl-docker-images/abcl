@@ -40,6 +40,7 @@ for version in "${versions[@]}"; do
                 ;;
 			windowsservercore-*)
                 template='windowsservercore'
+                cp abcl-wrapper.bat "$dir/abcl-wrapper.bat"
                 ;;
 		esac
 
