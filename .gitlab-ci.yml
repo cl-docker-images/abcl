@@ -89,9 +89,9 @@ Generate manifest:
     # how to automatically figure them out using powershell.
     - $parentArray = $WINDOWS_PARENT_IMAGES.split(";")
     - foreach ($parent in $parentArray){ docker pull $parent }
-    - bashbrew build $CI_PROJECT_NAME
+    - bashbrew --constraint windowsservercore-ltsc2016 --constraint windowsservercore-1809 build $CI_PROJECT_NAME
     - docker images
-    - bashbrew tag --target-namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID $CI_PROJECT_NAME
+    - bashbrew --constraint windowsservercore-ltsc2016 --constraint windowsservercore-1809 tag --target-namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID $CI_PROJECT_NAME
   cache:
     paths:
       - cache
@@ -169,8 +169,8 @@ Bashbrew build - winamd64:
     BASHBREW_ARCH: windows-amd64
   script:
     - docker info
-    - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
-    - bashbrew --namespace=$CANONICAL_NAMESPACE$ARCH push $CI_PROJECT_NAME
+    - bashbrew --constraint windowsservercore-ltsc2016 --constraint windowsservercore-1809 --namespace=$CANONICAL_NAMESPACE$ARCH$CI_PIPELINE_IID tag --target-namespace=$CANONICAL_NAMESPACE$ARCH $CI_PROJECT_NAME
+    - bashbrew --constraint windowsservercore-ltsc2016 --constraint windowsservercore-1809 --namespace=$CANONICAL_NAMESPACE$ARCH push $CI_PROJECT_NAME
   cache:
     paths:
       - cache
