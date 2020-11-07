@@ -26,7 +26,8 @@ RUN $ABCL_URL=('https://abcl.org/releases/{0}/abcl-bin-{0}.zip' -f $env:ABCL_VER
     $machinePath = $machineKey.GetValue('PATH', [string]::Empty, 'DoNotExpandEnvironmentNames').ToString(); \
     $newPath = ('C:\abcl;{0}' -f $machinePath); \
     $machineKey.SetValue('PATH', $newPath, 'ExpandString'); \
-    $machineKey.Close();
+    $machineKey.Close(); \
+    java -jar C:\abcl\abcl.jar --version
 
 COPY abcl-wrapper.bat C:\\abcl\\abcl.bat
 CMD ["abcl.bat"]
