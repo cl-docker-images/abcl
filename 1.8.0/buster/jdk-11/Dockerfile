@@ -7,7 +7,7 @@ FROM openjdk:11-jdk-buster
 
 ENV ABCL_VERSION 1.8.0
 
-WORKDIR /usr/local/lib/
+WORKDIR /usr/local/share/
 
 ENV ABCL_SIGNING_KEY 5491D207FF9ECDE0BEA277772A9641104DB1773D
 
@@ -27,7 +27,7 @@ RUN set -x \
     && apt-get remove -y curl ca-certificates gnupg dirmngr \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
-    && java -jar /usr/local/lib/abcl/abcl.jar --version
+    && java -jar /usr/local/share/abcl/abcl.jar --version
 
 WORKDIR /
 
