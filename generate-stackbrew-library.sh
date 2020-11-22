@@ -12,9 +12,18 @@ defaultJavaVersion='15'
 self="$(basename "$BASH_SOURCE")"
 cd "$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
-versions=( */ )
-versions=( "${versions[@]%/}" )
-versions=( "${versions[@]/nightly}" )
+if [ "${1-unset}" = "nightly" ]; then
+    versions=( nightly )
+    aliases[nightly]="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3 | head -c 7)"
+elif [ "${1-unset}" = "all" ]; then
+    versions=( */ )
+    versions=( "${versions[@]%/}" )
+    aliases[nightly]="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3 | head -c 7)"
+else
+    versions=( */ )
+    versions=( "${versions[@]%/}" )
+    versions=( "${versions[@]/nightly}" )
+fi
 
 # sort version numbers with highest first
 IFS=$'\n'; versions=( $(echo "${versions[*]}" | sort -rV) ); unset IFS
@@ -81,6 +90,10 @@ for version in "${versions[@]}"; do
         javaVersion="${javaVariant#jdk-}"
         javaType="${javaVariant%-*}"
         dir="$version/$v"
+
+        if [ "$version" = "nightly" ] && [[ "$os" == "windowsservercore"* ]]; then
+            continue
+        fi
 
         [ -f "$dir/Dockerfile" ] || continue
 

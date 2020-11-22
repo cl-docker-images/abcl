@@ -17,8 +17,15 @@ EOH
 
 for version in "${versions[@]}"; do
 
-    abclBinZipUrl="https://abcl.org/releases/$version/abcl-bin-$version.zip"
-    abclBinZipSha="$(curl -fsSL "$abclBinZipUrl" | sha256sum | cut -d' ' -f1)"
+    if [ "$version" = "nightly" ]; then
+        abclGitSha="$(curl -fsSL https://api.github.com/repos/armedbear/abcl/commits/master | jq -r .sha)"
+        unset abclBinZipUrl
+        unset abclBinZipSha
+    else
+        unset abclGitSha
+        abclBinZipUrl="https://abcl.org/releases/$version/abcl-bin-$version.zip"
+        abclBinZipSha="$(curl -fsSL "$abclBinZipUrl" | sha256sum | cut -d' ' -f1)"
+    fi
 
     for v in \
         buster/{jdk-15,jdk-11,jdk-8} \
@@ -29,6 +36,10 @@ for version in "${versions[@]}"; do
         javaVersion="${javaVariant#jdk-}"
         javaType="${javaVariant%-*}"
         dir="$version/$v"
+
+        if [ "$version" = "nightly" ] && [[ "$os" == "windowsservercore"* ]]; then
+            continue
+        fi
 
         mkdir -p "$dir"
 
@@ -44,15 +55,26 @@ for version in "${versions[@]}"; do
                 ;;
         esac
 
+        if [ "$version" = "nightly" ]; then
+            template="$template-nightly"
+        fi
+
         tag="$javaVersion-$javaType-$os"
         template="Dockerfile-${template}.template"
 
         { generated_warning; cat "$template"; } > "$dir/Dockerfile"
 
-        sed -ri \
-            -e 's/^(ENV ABCL_VERSION) .*/\1 '"$version"'/' \
-            -e 's/^(ENV ABCL_SHA256) .*/\1 '"$abclBinZipSha"'/' \
-            -e 's/^(FROM) .*/\1 '"openjdk:$tag"'/' \
-            "$dir/Dockerfile"
+        if [ "$version" = "nightly" ]; then
+            sed -ri \
+                -e 's/^(FROM) .*/\1 '"openjdk:$tag"'/' \
+                -e 's/^(ENV ABCL_COMMIT) .*/\1 '"$abclGitSha"'/' \
+                "$dir/Dockerfile"
+        else
+            sed -ri \
+                -e 's/^(ENV ABCL_VERSION) .*/\1 '"$version"'/' \
+                -e 's/^(ENV ABCL_SHA256) .*/\1 '"$abclBinZipSha"'/' \
+                -e 's/^(FROM) .*/\1 '"openjdk:$tag"'/' \
+                "$dir/Dockerfile"
+        fi
     done
 done

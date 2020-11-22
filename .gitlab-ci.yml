@@ -29,7 +29,7 @@ Generate manifest:
     - |
       echo "GitFetch: refs/heads/$CI_COMMIT_REF_NAME" > "build/$CI_PROJECT_NAME"
     - |
-      ./generate-stackbrew-library.sh >> "build/$CI_PROJECT_NAME"
+      ./generate-stackbrew-library.sh all >> "build/$CI_PROJECT_NAME"
     - sed -i "s/github.com/gitlab.common-lisp.net/" "build/$CI_PROJECT_NAME"
   artifacts:
     paths:
