@@ -59,7 +59,7 @@ getArches 'abcl'
 
 cat <<-EOH
 # this file is generated via https://github.com/cl-docker-images/abcl/blob/$(fileCommit "$self")/$self
-Maintainers: Eric Timmons <nasafreak@gmail.com> (@etimmons)
+Maintainers: Eric Timmons <nasafreak@gmail.com> (@daewok)
 GitRepo: https://github.com/cl-docker-images/abcl.git
 EOH
 
