@@ -22,7 +22,7 @@ RUN set -x \
     && apt-get remove -y curl ca-certificates gnupg dirmngr \
     && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
-    && java -jar /usr/local/share/abcl/abcl.jar --version
+    && java -jar /usr/local/share/abcl/abcl.jar --batch --eval '(print (multiple-value-list (lisp-implementation-version)))'
 
 WORKDIR /
 
