@@ -12,8 +12,6 @@ WORKDIR /usr/local/share/
 ENV ABCL_SIGNING_KEY 5491D207FF9ECDE0BEA277772A9641104DB1773D
 
 RUN set -x \
-    && apt-get update \
-    && apt-get install -y --no-install-recommends curl ca-certificates gnupg dirmngr \
     && curl -fL "https://abcl.org/releases/${ABCL_VERSION}/abcl-bin-${ABCL_VERSION}.tar.gz" > "abcl-bin-${ABCL_VERSION}.tar.gz" \
     && curl -fL "https://abcl.org/releases/${ABCL_VERSION}/abcl-bin-${ABCL_VERSION}.tar.gz.asc" > "abcl-bin-${ABCL_VERSION}.tar.gz.asc" \
     && GNUPGHOME="$(mktemp -d)" \
@@ -24,10 +22,7 @@ RUN set -x \
     && tar xf "abcl-bin-${ABCL_VERSION}.tar" \
     && mv "abcl-bin-${ABCL_VERSION}" abcl \
     && rm -rf "abcl-bin-${ABCL_VERSION}.tar.gz.asc" "abcl-bin-${ABCL_VERSION}.tar" "$GNUPGHOME" \
-    && apt-get remove -y curl ca-certificates gnupg dirmngr \
-    && apt-get autoremove -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && java -jar /usr/local/share/abcl/abcl.jar --version
+    && java -jar /usr/local/share/abcl/abcl.jar --batch --eval '(print (multiple-value-list (lisp-implementation-version)))'
 
 WORKDIR /
 
