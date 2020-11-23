@@ -27,7 +27,7 @@ Update nightly images:
   stage: update nightly
   image: alpine
   script:
-    - apk add git openssh-client jq curl ca-certificates
+    - apk add git openssh-client jq curl ca-certificates bash
     - ./update.sh nightly
     - |
       if git diff --quiet; then
