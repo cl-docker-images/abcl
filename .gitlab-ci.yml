@@ -60,6 +60,7 @@ Generate manifest:
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
       when: never
+    - when: on_success
 
 
 ##############################################################################
