@@ -44,7 +44,7 @@ Update nightly images:
     - chmod 600 $NIGHTLY_DEPLOY_PRIVATE_KEY
     - GIT_SSH_COMMAND="ssh -i $NIGHTLY_DEPLOY_PRIVATE_KEY" git push origin-ssh HEAD:$CI_COMMIT_BRANCH
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
 
 ##############################################################################
 # Fixup manifest
@@ -64,7 +64,7 @@ Generate manifest:
   tags:
       - bashbrew-amd64
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - when: on_success
 
@@ -139,7 +139,7 @@ Bashbrew build - amd64:
     BASHBREW_ARCH: amd64
     DOCKER_PLATFORM: linux/amd64
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: '$CL_DOCKER_IMAGES_AMD64 && $CI_COMMIT_REF_PROTECTED == "true"'
   tags:
@@ -152,7 +152,7 @@ Bashbrew build - arm64:
     BASHBREW_ARCH: arm64v8
     DOCKER_PLATFORM: linux/arm64
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: '$CL_DOCKER_IMAGES_ARM64V8 && $CI_COMMIT_REF_PROTECTED == "true"'
   tags:
@@ -165,7 +165,7 @@ Bashbrew build - arm32v7:
     BASHBREW_ARCH: arm32v7
     DOCKER_PLATFORM: linux/arm/v7
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: '$CL_DOCKER_IMAGES_ARM32V7 && $CI_COMMIT_REF_PROTECTED == "true"'
   tags:
@@ -174,7 +174,7 @@ Bashbrew build - arm32v7:
 Bashbrew build - winamd64:
   extends: .Bashbrew build win
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: '$CL_DOCKER_IMAGES_WINAMD64 && $CI_COMMIT_REF_PROTECTED == "true"'
 
@@ -228,7 +228,7 @@ Bashbrew push - amd64:
     BASHBREW_ARCH: amd64
     DOCKER_PLATFORM: linux/amd64
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_AMD64
   tags:
@@ -241,7 +241,7 @@ Bashbrew push - arm64:
     BASHBREW_ARCH: arm64v8
     DOCKER_PLATFORM: linux/arm64
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_ARM64V8
   tags:
@@ -254,7 +254,7 @@ Bashbrew push - arm32v7:
     BASHBREW_ARCH: arm32v7
     DOCKER_PLATFORM: linux/arm/v7
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_ARM32V7
   tags:
@@ -263,7 +263,7 @@ Bashbrew push - arm32v7:
 Bashbrew push - winamd64:
   extends: .Bashbrew push win
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_WINAMD64
 
@@ -285,7 +285,7 @@ Bashbrew put-shared:
   tags:
     - bashbrew-amd64
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
   cache:
@@ -318,7 +318,7 @@ Pushrm:
     paths:
       - build/hub-description.md
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_TYPE == "nightly-update"'
       when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
   tags:
