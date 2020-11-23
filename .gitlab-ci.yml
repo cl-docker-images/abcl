@@ -34,11 +34,12 @@ Update nightly images:
         exit 0
       fi
     - NEW_COMMIT="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3)"
+    - git remote add origin-ssh "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git
     - git add .
     - git config user.name "$GITLAB_USER_NAME"
     - git config user.email "$GITLAB_USER_EMAIL"
     - git commit -m "Update nightly to commit $NEW_COMMIT"
-    - GIT_SSH_COMMAND="ssh -i $NIGHTLY_DEPLOY_PRIVATE_KEY" git push origin $CI_COMMIT_BRANCH
+    - GIT_SSH_COMMAND="ssh -i $NIGHTLY_DEPLOY_PRIVATE_KEY" git push origin-ssh $CI_COMMIT_BRANCH
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
