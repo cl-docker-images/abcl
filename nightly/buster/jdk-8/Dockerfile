@@ -5,7 +5,7 @@
 #
 FROM openjdk:8-jdk-buster
 
-ENV ABCL_COMMIT 9c0a9693ea933309e503266255edcde5cc76257c
+ENV ABCL_COMMIT 056eb78d30532174ccf1df10d45f59d562c3303a
 
 WORKDIR /usr/local/src/
 
