@@ -39,7 +39,7 @@ Update nightly images:
     - git config user.name "$GITLAB_USER_NAME"
     - git config user.email "$GITLAB_USER_EMAIL"
     - git commit -m "Update nightly to commit $NEW_COMMIT"
-    - GIT_SSH_COMMAND="ssh -i $NIGHTLY_DEPLOY_PRIVATE_KEY" git push origin-ssh $CI_COMMIT_BRANCH
+    - GIT_SSH_COMMAND="ssh -i $NIGHTLY_DEPLOY_PRIVATE_KEY" git push origin-ssh HEAD:$CI_COMMIT_BRANCH
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
