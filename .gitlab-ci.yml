@@ -34,6 +34,8 @@ Update nightly images:
         exit 0
       fi
     - NEW_COMMIT="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3)"
+    - mkdir -p ~/.ssh
+    - ssh-keyscan "$CI_SERVER_HOST" > ~/.ssh/known_hosts
     - git remote add origin-ssh "git@$CI_SERVER_HOST:$CI_PROJECT_PATH.git"
     - git add .
     - git config user.name "$GITLAB_USER_NAME"
