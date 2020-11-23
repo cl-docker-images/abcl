@@ -13,11 +13,32 @@ variables:
   WINDOWS_PARENT_IMAGES: "openjdk:15-windowsservercore-1809;openjdk:11-windowsservercore-1809;openjdk:8-windowsservercore-1809;openjdk:15-windowsservercore-ltsc2016;openjdk:11-windowsservercore-ltsc2016;openjdk:8-windowsservercore-ltsc2016"
 
 stages:
+  - update nightly
   - generate manifest
   - build
   - push
   - put shared
   - readme
+
+##############################################################################
+# Nightly version updater
+
+Update nightly images:
+  stage: update nightly
+  image: alpine
+  script:
+    - apk add git openssh-client jq curl ca-certificates
+    - ./update.sh nightly
+    - |
+      if git diff --quiet; then
+        exit 0
+      fi
+    - NEW_COMMIT="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3)"
+    - git add .
+    - git commit -m "Update nightly to commit $NEW_COMMIT"
+    - GIT_SSH_COMMAND="ssh -i $NIGHTLY_DEPLOY_PRIVATE_KEY" git push origin $CI_COMMIT_BRANCH
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
 
 ##############################################################################
 # Fixup manifest
@@ -36,6 +57,9 @@ Generate manifest:
       - build/
   tags:
       - bashbrew-amd64
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
 
 
 ##############################################################################
@@ -108,6 +132,8 @@ Bashbrew build - amd64:
     BASHBREW_ARCH: amd64
     DOCKER_PLATFORM: linux/amd64
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CL_DOCKER_IMAGES_AMD64 && $CI_COMMIT_REF_PROTECTED == "true"'
   tags:
     - bashbrew-amd64
@@ -119,6 +145,8 @@ Bashbrew build - arm64:
     BASHBREW_ARCH: arm64v8
     DOCKER_PLATFORM: linux/arm64
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CL_DOCKER_IMAGES_ARM64V8 && $CI_COMMIT_REF_PROTECTED == "true"'
   tags:
     - bashbrew-arm64v8
@@ -130,6 +158,8 @@ Bashbrew build - arm32v7:
     BASHBREW_ARCH: arm32v7
     DOCKER_PLATFORM: linux/arm/v7
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CL_DOCKER_IMAGES_ARM32V7 && $CI_COMMIT_REF_PROTECTED == "true"'
   tags:
     - bashbrew-arm32v7
@@ -137,6 +167,8 @@ Bashbrew build - arm32v7:
 Bashbrew build - winamd64:
   extends: .Bashbrew build win
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: '$CL_DOCKER_IMAGES_WINAMD64 && $CI_COMMIT_REF_PROTECTED == "true"'
 
 
@@ -189,6 +221,8 @@ Bashbrew push - amd64:
     BASHBREW_ARCH: amd64
     DOCKER_PLATFORM: linux/amd64
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_AMD64
   tags:
     - bashbrew-amd64
@@ -200,6 +234,8 @@ Bashbrew push - arm64:
     BASHBREW_ARCH: arm64v8
     DOCKER_PLATFORM: linux/arm64
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_ARM64V8
   tags:
     - bashbrew-arm64v8
@@ -211,6 +247,8 @@ Bashbrew push - arm32v7:
     BASHBREW_ARCH: arm32v7
     DOCKER_PLATFORM: linux/arm/v7
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_ARM32V7
   tags:
     - bashbrew-arm32v7
@@ -218,6 +256,8 @@ Bashbrew push - arm32v7:
 Bashbrew push - winamd64:
   extends: .Bashbrew push win
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH) && $CL_DOCKER_IMAGES_WINAMD64
 
 ##############################################################################
@@ -238,6 +278,8 @@ Bashbrew put-shared:
   tags:
     - bashbrew-amd64
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
   cache:
     paths:
@@ -269,6 +311,8 @@ Pushrm:
     paths:
       - build/hub-description.md
   rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+      when: never
     - if: ($CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH)
   tags:
     - bashbrew-amd64
