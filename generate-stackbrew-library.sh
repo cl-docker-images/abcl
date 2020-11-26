@@ -82,13 +82,22 @@ join() {
 for version in "${versions[@]}"; do
 
     for v in \
-        buster/{jdk-15,jdk-11,jdk-8} \
+        buster/{jdk-15,jdk-11,jdk-8}/{,slim} \
         windowsservercore-{1809,ltsc2016}/{jdk-15,jdk-11,jdk-8} \
     ; do
         os="${v%%/*}"
-        javaVariant="$(basename "$v")"
+        javaVariant="${v%/*}"
+        javaVariant="$(basename "$javaVariant")"
         javaVersion="${javaVariant#jdk-}"
         javaType="${javaVariant%-*}"
+
+        variant="${v##*/}"
+        if [ -n "$variant" ]; then
+            variantTag="-$variant"
+        else
+            variantTag=""
+        fi
+
         dir="$version/$v"
 
         if [ "$version" = "nightly" ] && [[ "$os" == "windowsservercore"* ]]; then
@@ -104,7 +113,7 @@ for version in "${versions[@]}"; do
             ${aliases[$version]:-}
         )
 
-        variantAliases=( "${versionAliases[@]/%/-$javaType$javaVersion-$os}" )
+        variantAliases=( "${versionAliases[@]/%/-$javaType$javaVersion$variantTag-$os}" )
         variantAliases=( "${variantAliases[@]//latest-/}" )
 
         case "$os" in
@@ -116,22 +125,22 @@ for version in "${versions[@]}"; do
         esac
 
         if [ "$javaVersion" = "$defaultJavaVersion" ]; then
-            variantAliases+=( "${versionAliases[@]/%/-$javaType-$os}" )
-            variantAliases+=( "${versionAliases[@]/%/-$os}" )
+            variantAliases+=( "${versionAliases[@]/%/-$javaType$variantTag-$os}" )
+            variantAliases+=( "${versionAliases[@]/%/$variantTag-$os}" )
             variantAliases=( "${variantAliases[@]//latest-/}" )
         fi
 
         sharedTags=()
 
         if [ "$os" = "$defaultDebianSuite" ] || [[ "$os" == 'windowsservercore'* ]]; then
-            sharedTags+=( "${versionAliases[@]/%/-$javaType$javaVersion}" )
+            sharedTags+=( "${versionAliases[@]/%/-$javaType$javaVersion$variantTag}" )
             if [ "$javaVersion" = "$defaultJavaVersion" ]; then
-                sharedTags+=( "${versionAliases[@]/%/-$javaType}" )
-                sharedTags+=( "${versionAliases[@]}" )
+                sharedTags+=( "${versionAliases[@]/%/-$javaType$variantTag}" )
+                sharedTags+=( "${versionAliases[@]/%/$variantTag}" )
             fi
 
             if [[ "$os" == "windowsservercore"* ]]; then
-                sharedTags+=( "${sharedTags[@]/%/-windowsservercore}")
+                sharedTags+=( "${sharedTags[@]/%/-windowsservercore$variantTag}")
             fi
         fi
 
