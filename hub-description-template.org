@@ -57,7 +57,7 @@
    the ABCL Docker image directly:
 
    #+begin_src console
-     $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/src/app clfoundation/abcl:latest abcl --load ./your-daemon-or-script.lisp
+     $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/src/app %%IMAGE%%:latest abcl --load ./your-daemon-or-script.lisp
    #+end_src
 
 ** Developing using SLIME
@@ -66,7 +66,7 @@
    Lisp. To develop using SLIME, first start the Swank server in a container:
 
    #+begin_src console
-     $ docker run -it --rm --name abcl-slime -p 127.0.0.1:4005:4005 -v /path/to/slime:/usr/src/slime -v "$PWD":/usr/src/app -w /usr/src/app clfoundation/abcl:latest abcl --load /usr/src/slime/swank-loader.lisp --eval '(swank-loader:init)' --eval '(swank:create-server :dont-close t :interface "0.0.0.0")'
+     $ docker run -it --rm --name abcl-slime -p 127.0.0.1:4005:4005 -v /path/to/slime:/usr/src/slime -v "$PWD":/usr/src/app -w /usr/src/app %%IMAGE%%:latest abcl --load /usr/src/slime/swank-loader.lisp --eval '(swank-loader:init)' --eval '(swank:create-server :dont-close t :interface "0.0.0.0")'
    #+end_src
 
    Then, in an Emacs instance with slime loaded, type:
@@ -79,7 +79,7 @@
 
   This image comes in several variant, each designed for a specific use case.
 
-** =clfoundation/abcl:<version>=
+** =%%IMAGE%%:<version>=
 
    This is the defacto image. If you are unsure about what your needs are, you
    probably want to use this one. It is designed to be used both as a throw
@@ -96,7 +96,7 @@
    buildpack-deps. It, by design, has a large number of extremely common Debian
    packages.
 
-** =clfoundation/abcl:<version>-slim=
+** =%%IMAGE%%:<version>-slim=
 
    This image does not contain the common packages contained in the default tag
    and only contains the minimal packages needed to run ABCL. Unless you are
@@ -104,7 +104,7 @@
    have space constraints, we highly recommend using the default image of this
    repository.
 
-** =clfoundation/abcl:<version>-windowsservercore=
+** =%%IMAGE%%:<version>-windowsservercore=
 
    This image is based on [[https://hub.docker.com/_/microsoft-windows-servercore][Windows Server Core
    (=microsoft/windowsservercore=)]]. As such, it only works in places which that
