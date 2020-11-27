@@ -83,7 +83,7 @@ for version in "${versions[@]}"; do
 
     for v in \
         buster/{jdk-15,jdk-11,jdk-8}/{,slim} \
-        windowsservercore-{1809,ltsc2016}/{jdk-15,jdk-11,jdk-8} \
+        windowsservercore-{1809,ltsc2016}/{jdk-15,jdk-11,jdk-8}/ \
     ; do
         os="${v%%/*}"
         javaVariant="${v%/*}"
