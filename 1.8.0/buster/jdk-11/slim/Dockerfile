@@ -27,6 +27,7 @@ RUN set -x \
     && rm -rf "abcl-bin-${ABCL_VERSION}.tar.gz.asc" "abcl-bin-${ABCL_VERSION}.tar" "$GNUPGHOME" \
     # Remove fetch deps
     && apt-get remove -y curl gnupg dirmngr \
+    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/* \
     # Smoke test ABCL.
     && java -jar /usr/local/share/abcl/abcl.jar --batch --eval '(print (multiple-value-list (lisp-implementation-version)))'
