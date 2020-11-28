@@ -77,7 +77,7 @@
 
 * Image variants
 
-  This image comes in several variant, each designed for a specific use case.
+  This image comes in several variants, each designed for a specific use case.
 
 ** =%%IMAGE%%:<version>=
 

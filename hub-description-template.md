@@ -1,40 +1,40 @@
-- [Supported Tags](#orgef301ae)
-  - [Simple Tags](#org060c6b9)
-  - [Shared Tags](#org1085d12)
-- [Quick Reference](#orgc2fa4fb)
-- [What is ABCL?](#orgc5cbc4c)
-- [How to use this iamge](#org84c2895)
-  - [Create a `Dockerfile` in your ABCL project](#orgb45ff03)
-  - [Run a single Common Lisp script](#org8ec9d53)
-  - [Developing using SLIME](#org98391d6)
-- [Image variants](#orga3a9ef4)
-  - [`%%IMAGE%%:<version>`](#org50a7673)
-  - [`%%IMAGE%%:<version>-slim`](#org96159d5)
-  - [`%%IMAGE%%:<version>-windowsservercore`](#org103d076)
-- [License](#org76aa2e1)
+- [Supported Tags](#org0446a11)
+  - [Simple Tags](#orgfe7680c)
+  - [Shared Tags](#orgeb911e0)
+- [Quick Reference](#org99b24ac)
+- [What is ABCL?](#org1537c8b)
+- [How to use this iamge](#org164f89f)
+  - [Create a `Dockerfile` in your ABCL project](#org6ca2ff5)
+  - [Run a single Common Lisp script](#org0d774fc)
+  - [Developing using SLIME](#org4df881d)
+- [Image variants](#org95c124a)
+  - [`%%IMAGE%%:<version>`](#org9a12ed3)
+  - [`%%IMAGE%%:<version>-slim`](#org98b4a96)
+  - [`%%IMAGE%%:<version>-windowsservercore`](#orgf106c12)
+- [License](#orgbad5fc3)
 
 
 
-<a id="orgef301ae"></a>
+<a id="org0446a11"></a>
 
 # Supported Tags
 
 
-<a id="org060c6b9"></a>
+<a id="orgfe7680c"></a>
 
 ## Simple Tags
 
 INSERT-SIMPLE-TAGS
 
 
-<a id="org1085d12"></a>
+<a id="orgeb911e0"></a>
 
 ## Shared Tags
 
 INSERT-SHARED-TAGS
 
 
-<a id="orgc2fa4fb"></a>
+<a id="org99b24ac"></a>
 
 # Quick Reference
 
@@ -45,7 +45,7 @@ INSERT-SHARED-TAGS
 -   **Supported platforms:** `linux/amd64`, `linux/arm64/v8`, `windows/amd64`
 
 
-<a id="orgc5cbc4c"></a>
+<a id="org1537c8b"></a>
 
 # What is ABCL?
 
@@ -54,12 +54,12 @@ From [ABCL's Home Page](https://abcl.org)
 > Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp language featuring both an interpreter and a compiler, running in the JVM. Originally started to be a scripting language for the J editor, it now supports JSR-223 (Java scripting API): it can be a scripting engine in any Java application. Additionally, it can be used to implement (parts of) the application using Java to Lisp integration APIs.
 
 
-<a id="org84c2895"></a>
+<a id="org164f89f"></a>
 
 # How to use this iamge
 
 
-<a id="orgb45ff03"></a>
+<a id="org6ca2ff5"></a>
 
 ## Create a `Dockerfile` in your ABCL project
 
@@ -78,7 +78,7 @@ $ docker run -it --rm --name my-running-app my-abcl-app
 ```
 
 
-<a id="org8ec9d53"></a>
+<a id="org0d774fc"></a>
 
 ## Run a single Common Lisp script
 
@@ -89,7 +89,7 @@ $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/sr
 ```
 
 
-<a id="org98391d6"></a>
+<a id="org4df881d"></a>
 
 ## Developing using SLIME
 
@@ -106,14 +106,14 @@ M-x slime-connect RET RET RET
 ```
 
 
-<a id="orga3a9ef4"></a>
+<a id="org95c124a"></a>
 
 # Image variants
 
-This image comes in several variant, each designed for a specific use case.
+This image comes in several variants, each designed for a specific use case.
 
 
-<a id="org50a7673"></a>
+<a id="org9a12ed3"></a>
 
 ## `%%IMAGE%%:<version>`
 
@@ -124,14 +124,14 @@ Some of these tags may have names like buster or stretch in them. These are the 
 This tag attempts to replicate the base environment provided by buildpack-deps. It, by design, has a large number of extremely common Debian packages.
 
 
-<a id="org96159d5"></a>
+<a id="org98b4a96"></a>
 
 ## `%%IMAGE%%:<version>-slim`
 
 This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run ABCL. Unless you are working in an environment where only this image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
 
 
-<a id="org103d076"></a>
+<a id="orgf106c12"></a>
 
 ## `%%IMAGE%%:<version>-windowsservercore`
 
@@ -143,7 +143,7 @@ For information about how to get Docker running on Windows, please see the relev
 -   [Windows 10 Quick Start](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
 
-<a id="org76aa2e1"></a>
+<a id="orgbad5fc3"></a>
 
 # License
 
