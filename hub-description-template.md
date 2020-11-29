@@ -1,40 +1,40 @@
-- [Supported Tags](#org0446a11)
-  - [Simple Tags](#orgfe7680c)
-  - [Shared Tags](#orgeb911e0)
-- [Quick Reference](#org99b24ac)
-- [What is ABCL?](#org1537c8b)
-- [How to use this iamge](#org164f89f)
-  - [Create a `Dockerfile` in your ABCL project](#org6ca2ff5)
-  - [Run a single Common Lisp script](#org0d774fc)
-  - [Developing using SLIME](#org4df881d)
-- [Image variants](#org95c124a)
-  - [`%%IMAGE%%:<version>`](#org9a12ed3)
-  - [`%%IMAGE%%:<version>-slim`](#org98b4a96)
-  - [`%%IMAGE%%:<version>-windowsservercore`](#orgf106c12)
-- [License](#orgbad5fc3)
+- [Supported Tags](#org3b744b2)
+  - [Simple Tags](#org7e2384a)
+  - [Shared Tags](#orgf2a55eb)
+- [Quick Reference](#org445ae84)
+- [What is ABCL?](#orge513f25)
+- [How to use this iamge](#org3557f4f)
+  - [Create a `Dockerfile` in your ABCL project](#org49dc377)
+  - [Run a single Common Lisp script](#orgf9fa139)
+  - [Developing using SLIME](#orga29cc9a)
+- [Image variants](#org3be2955)
+  - [`%%IMAGE%%:<version>`](#orgcf6a78f)
+  - [`%%IMAGE%%:<version>-slim`](#org90b3a21)
+  - [`%%IMAGE%%:<version>-windowsservercore`](#org6d31197)
+- [License](#orge1ad7f0)
 
 
 
-<a id="org0446a11"></a>
+<a id="org3b744b2"></a>
 
 # Supported Tags
 
 
-<a id="orgfe7680c"></a>
+<a id="org7e2384a"></a>
 
 ## Simple Tags
 
 INSERT-SIMPLE-TAGS
 
 
-<a id="orgeb911e0"></a>
+<a id="orgf2a55eb"></a>
 
 ## Shared Tags
 
 INSERT-SHARED-TAGS
 
 
-<a id="org99b24ac"></a>
+<a id="org445ae84"></a>
 
 # Quick Reference
 
@@ -45,7 +45,7 @@ INSERT-SHARED-TAGS
 -   **Supported platforms:** `linux/amd64`, `linux/arm64/v8`, `windows/amd64`
 
 
-<a id="org1537c8b"></a>
+<a id="orge513f25"></a>
 
 # What is ABCL?
 
@@ -54,12 +54,12 @@ From [ABCL's Home Page](https://abcl.org)
 > Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp language featuring both an interpreter and a compiler, running in the JVM. Originally started to be a scripting language for the J editor, it now supports JSR-223 (Java scripting API): it can be a scripting engine in any Java application. Additionally, it can be used to implement (parts of) the application using Java to Lisp integration APIs.
 
 
-<a id="org164f89f"></a>
+<a id="org3557f4f"></a>
 
 # How to use this iamge
 
 
-<a id="org6ca2ff5"></a>
+<a id="org49dc377"></a>
 
 ## Create a `Dockerfile` in your ABCL project
 
@@ -78,7 +78,7 @@ $ docker run -it --rm --name my-running-app my-abcl-app
 ```
 
 
-<a id="org0d774fc"></a>
+<a id="orgf9fa139"></a>
 
 ## Run a single Common Lisp script
 
@@ -89,7 +89,7 @@ $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/sr
 ```
 
 
-<a id="org4df881d"></a>
+<a id="orga29cc9a"></a>
 
 ## Developing using SLIME
 
@@ -106,14 +106,14 @@ M-x slime-connect RET RET RET
 ```
 
 
-<a id="org95c124a"></a>
+<a id="org3be2955"></a>
 
 # Image variants
 
 This image comes in several variants, each designed for a specific use case.
 
 
-<a id="org9a12ed3"></a>
+<a id="orgcf6a78f"></a>
 
 ## `%%IMAGE%%:<version>`
 
@@ -123,15 +123,17 @@ Some of these tags may have names like buster or stretch in them. These are the 
 
 This tag attempts to replicate the base environment provided by buildpack-deps. It, by design, has a large number of extremely common Debian packages.
 
+These images contain the quicklisp installer, located at `/usr/local/share/common-lisp/source/quicklisp/quicklisp.lisp`.
 
-<a id="org98b4a96"></a>
+
+<a id="org90b3a21"></a>
 
 ## `%%IMAGE%%:<version>-slim`
 
 This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run ABCL. Unless you are working in an environment where only this image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
 
 
-<a id="orgf106c12"></a>
+<a id="org6d31197"></a>
 
 ## `%%IMAGE%%:<version>-windowsservercore`
 
@@ -143,7 +145,7 @@ For information about how to get Docker running on Windows, please see the relev
 -   [Windows 10 Quick Start](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
 
-<a id="orgbad5fc3"></a>
+<a id="orge1ad7f0"></a>
 
 # License
 

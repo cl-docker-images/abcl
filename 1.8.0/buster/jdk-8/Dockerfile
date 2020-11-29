@@ -97,6 +97,22 @@ RUN set -x \
     && rm -rf "abcl-bin-${ABCL_VERSION}.tar.gz.asc" "abcl-bin-${ABCL_VERSION}.tar" "$GNUPGHOME" \
     && java -jar /usr/local/share/abcl/abcl.jar --batch --eval '(print (multiple-value-list (lisp-implementation-version)))'
 
+# Add the Quicklisp installer.
+WORKDIR /usr/local/share/common-lisp/source/quicklisp/
+
+ENV QUICKLISP_SIGNING_KEY D7A3489DDEFE32B7D0E7CC61307965AB028B5FF7
+
+RUN set -x \
+    && curl -fsSL "https://beta.quicklisp.org/quicklisp.lisp" > quicklisp.lisp \
+    && curl -fsSL "https://beta.quicklisp.org/quicklisp.lisp.asc" > quicklisp.lisp.asc \
+    && GNUPGHOME="$(mktemp -d)" \
+    && export GNUPGHOME \
+    && gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "${QUICKLISP_SIGNING_KEY}" \
+    && gpg --batch --verify "quicklisp.lisp.asc" "quicklisp.lisp" \
+    && rm quicklisp.lisp.asc \
+    && rm -rf "$GNUPGHOME"
+
+# Add the entrypoint
 WORKDIR /
 
 COPY abcl-wrapper /usr/local/bin/abcl
