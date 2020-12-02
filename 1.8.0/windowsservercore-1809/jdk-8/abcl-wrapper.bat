@@ -1,2 +1,2 @@
 @echo off
-java -jar C:\abcl\abcl.jar %1 %2 %3 %4 %5 %6 %7 %8 %9
+java -cp C:\abcl\abcl.jar;"%CLASSPATH%" -XshowSettings:vm -Dfile.encoding=UTF-8 -XX:+UseG1GC -XX:+AggressiveOpts -XX:CompileThreshold=10 org.armedbear.lisp.Main %1 %2 %3 %4 %5 %6 %7 %8 %9

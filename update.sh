@@ -55,12 +55,12 @@ for version in "${versions[@]}"; do
         case "$os" in
             buster)
                 template="apt$variantTag"
-                cp abcl-wrapper "$dir/abcl-wrapper"
+                cp "abcl-wrapper-jdk$javaVersion" "$dir/abcl-wrapper"
                 cp docker-entrypoint.sh "$dir/docker-entrypoint.sh"
                 ;;
             windowsservercore-*)
                 template='windowsservercore'
-                cp abcl-wrapper.bat "$dir/abcl-wrapper.bat"
+                cp "abcl-wrapper-jdk$javaVersion.bat" "$dir/abcl-wrapper.bat"
                 ;;
         esac
 

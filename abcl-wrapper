@@ -1,3 +1,0 @@
-#!/bin/sh
-
-exec java -jar /usr/local/share/abcl/abcl.jar "$@"
