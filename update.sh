@@ -57,6 +57,9 @@ for version in "${versions[@]}"; do
                 template="apt$variantTag"
                 cp "abcl-wrapper-jdk$javaVersion" "$dir/abcl-wrapper"
                 cp docker-entrypoint.sh "$dir/docker-entrypoint.sh"
+                if [ "$variant" != "slim" ]; then
+                    cp install-quicklisp "$dir/install-quicklisp"
+                fi
                 ;;
             windowsservercore-*)
                 template='windowsservercore'
