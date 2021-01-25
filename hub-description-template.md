@@ -1,51 +1,51 @@
-- [Supported Tags](#org3b744b2)
-  - [Simple Tags](#org7e2384a)
-  - [Shared Tags](#orgf2a55eb)
-- [Quick Reference](#org445ae84)
-- [What is ABCL?](#orge513f25)
-- [How to use this iamge](#org3557f4f)
-  - [Create a `Dockerfile` in your ABCL project](#org49dc377)
-  - [Run a single Common Lisp script](#orgf9fa139)
-  - [Developing using SLIME](#orga29cc9a)
-- [Image variants](#org3be2955)
-  - [`%%IMAGE%%:<version>`](#orgcf6a78f)
-  - [`%%IMAGE%%:<version>-slim`](#org90b3a21)
-  - [`%%IMAGE%%:<version>-windowsservercore`](#org6d31197)
-- [License](#orge1ad7f0)
+- [Supported Tags](#org993f32a)
+  - [Simple Tags](#org53b48aa)
+  - [Shared Tags](#org53b8acf)
+- [Quick Reference](#org527f30d)
+- [What is ABCL?](#orga42142e)
+- [How to use this iamge](#org1193d10)
+  - [Create a `Dockerfile` in your ABCL project](#orge347b1c)
+  - [Run a single Common Lisp script](#org47a5e04)
+  - [Developing using SLIME](#orga00c0cd)
+- [Image variants](#org3471f08)
+  - [`%%IMAGE%%:<version>`](#org7bb1458)
+  - [`%%IMAGE%%:<version>-slim`](#org50bc7f4)
+  - [`%%IMAGE%%:<version>-windowsservercore`](#org39e2f32)
+- [License](#org15ed669)
 
 
 
-<a id="org3b744b2"></a>
+<a id="org993f32a"></a>
 
 # Supported Tags
 
 
-<a id="org7e2384a"></a>
+<a id="org53b48aa"></a>
 
 ## Simple Tags
 
 INSERT-SIMPLE-TAGS
 
 
-<a id="orgf2a55eb"></a>
+<a id="org53b8acf"></a>
 
 ## Shared Tags
 
 INSERT-SHARED-TAGS
 
 
-<a id="org445ae84"></a>
+<a id="org527f30d"></a>
 
 # Quick Reference
 
 -   **ABCL Home Page:** <https://abcl.org/>
 -   **Where to file Docker image related issues:** <https://gitlab.common-lisp.net/cl-docker-images/abcl/>
 -   **Where to file issues for ABCL itself:** <https://github.com/armedbear/abcl/issues>
--   **Maintained by:** [Eric Timmons](https://github.com/daewok)
+-   **Maintained by:** [CL Docker Images Project](https://common-lisp.net/project/cl-docker-images)
 -   **Supported platforms:** `linux/amd64`, `linux/arm64/v8`, `windows/amd64`
 
 
-<a id="orge513f25"></a>
+<a id="orga42142e"></a>
 
 # What is ABCL?
 
@@ -54,12 +54,12 @@ From [ABCL's Home Page](https://abcl.org)
 > Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp language featuring both an interpreter and a compiler, running in the JVM. Originally started to be a scripting language for the J editor, it now supports JSR-223 (Java scripting API): it can be a scripting engine in any Java application. Additionally, it can be used to implement (parts of) the application using Java to Lisp integration APIs.
 
 
-<a id="org3557f4f"></a>
+<a id="org1193d10"></a>
 
 # How to use this iamge
 
 
-<a id="org49dc377"></a>
+<a id="orge347b1c"></a>
 
 ## Create a `Dockerfile` in your ABCL project
 
@@ -78,7 +78,7 @@ $ docker run -it --rm --name my-running-app my-abcl-app
 ```
 
 
-<a id="orgf9fa139"></a>
+<a id="org47a5e04"></a>
 
 ## Run a single Common Lisp script
 
@@ -89,7 +89,7 @@ $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/sr
 ```
 
 
-<a id="orga29cc9a"></a>
+<a id="orga00c0cd"></a>
 
 ## Developing using SLIME
 
@@ -106,14 +106,14 @@ M-x slime-connect RET RET RET
 ```
 
 
-<a id="org3be2955"></a>
+<a id="org3471f08"></a>
 
 # Image variants
 
 This image comes in several variants, each designed for a specific use case.
 
 
-<a id="orgcf6a78f"></a>
+<a id="org7bb1458"></a>
 
 ## `%%IMAGE%%:<version>`
 
@@ -126,14 +126,14 @@ This tag attempts to replicate the base environment provided by buildpack-deps. 
 These images contain the quicklisp installer, located at `/usr/local/share/common-lisp/source/quicklisp/quicklisp.lisp`.
 
 
-<a id="org90b3a21"></a>
+<a id="org50bc7f4"></a>
 
 ## `%%IMAGE%%:<version>-slim`
 
 This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run ABCL. Unless you are working in an environment where only this image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
 
 
-<a id="org6d31197"></a>
+<a id="org39e2f32"></a>
 
 ## `%%IMAGE%%:<version>-windowsservercore`
 
@@ -145,7 +145,7 @@ For information about how to get Docker running on Windows, please see the relev
 -   [Windows 10 Quick Start](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
 
-<a id="orge1ad7f0"></a>
+<a id="org15ed669"></a>
 
 # License
 
