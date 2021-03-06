@@ -1,40 +1,40 @@
-- [Supported Tags](#org3364b47)
-  - [Simple Tags](#org9771021)
-  - [Shared Tags](#org32c4fe2)
-- [Quick Reference](#org1c6007b)
-- [What is ABCL?](#orgb8ba2c3)
-- [How to use this iamge](#org2fe1ebb)
-  - [Create a `Dockerfile` in your ABCL project](#org874a6cf)
-  - [Run a single Common Lisp script](#orga43af56)
-  - [Developing using SLIME](#org0c0787a)
-- [Image variants](#org2663dc1)
-  - [`%%IMAGE%%:<version>`](#orgd984448)
-  - [`%%IMAGE%%:<version>-slim`](#org61a3189)
-  - [`%%IMAGE%%:<version>-windowsservercore`](#org4b0cc43)
-- [License](#org6e67466)
+- [Supported Tags](#orge4503b1)
+  - [Simple Tags](#orgf5980dd)
+  - [Shared Tags](#org3fb4e1f)
+- [Quick Reference](#org6b07a7b)
+- [What is ABCL?](#orgfcb571f)
+- [How to use this iamge](#orge0f7852)
+  - [Create a `Dockerfile` in your ABCL project](#orge6f4ae1)
+  - [Run a single Common Lisp script](#org8208b8d)
+  - [Developing using SLIME](#org11da1b9)
+- [Image variants](#org6e3ae5b)
+  - [`%%IMAGE%%:<version>`](#org630dd11)
+  - [`%%IMAGE%%:<version>-slim`](#org647d810)
+  - [`%%IMAGE%%:<version>-windowsservercore`](#org3cb48b6)
+- [License](#orgcf4053d)
 
 
 
-<a id="org3364b47"></a>
+<a id="orge4503b1"></a>
 
 # Supported Tags
 
 
-<a id="org9771021"></a>
+<a id="orgf5980dd"></a>
 
 ## Simple Tags
 
 INSERT-SIMPLE-TAGS
 
 
-<a id="org32c4fe2"></a>
+<a id="org3fb4e1f"></a>
 
 ## Shared Tags
 
 INSERT-SHARED-TAGS
 
 
-<a id="org1c6007b"></a>
+<a id="org6b07a7b"></a>
 
 # Quick Reference
 
@@ -45,7 +45,7 @@ INSERT-SHARED-TAGS
 -   **Supported platforms:** `linux/amd64`, `linux/arm64/v8`, `windows/amd64`
 
 
-<a id="orgb8ba2c3"></a>
+<a id="orgfcb571f"></a>
 
 # What is ABCL?
 
@@ -54,12 +54,12 @@ From [ABCL's Home Page](https://abcl.org)
 > Armed Bear Common Lisp (ABCL) is a full implementation of the Common Lisp language featuring both an interpreter and a compiler, running in the JVM. Originally started to be a scripting language for the J editor, it now supports JSR-223 (Java scripting API): it can be a scripting engine in any Java application. Additionally, it can be used to implement (parts of) the application using Java to Lisp integration APIs.
 
 
-<a id="org2fe1ebb"></a>
+<a id="orge0f7852"></a>
 
 # How to use this iamge
 
 
-<a id="org874a6cf"></a>
+<a id="orge6f4ae1"></a>
 
 ## Create a `Dockerfile` in your ABCL project
 
@@ -78,7 +78,7 @@ $ docker run -it --rm --name my-running-app my-abcl-app
 ```
 
 
-<a id="orga43af56"></a>
+<a id="org8208b8d"></a>
 
 ## Run a single Common Lisp script
 
@@ -89,7 +89,7 @@ $ docker run -it --rm --name my-running-script -v "$PWD":/usr/src/app -w /usr/sr
 ```
 
 
-<a id="org0c0787a"></a>
+<a id="org11da1b9"></a>
 
 ## Developing using SLIME
 
@@ -106,14 +106,14 @@ M-x slime-connect RET RET RET
 ```
 
 
-<a id="org2663dc1"></a>
+<a id="org6e3ae5b"></a>
 
 # Image variants
 
 This image comes in several variants, each designed for a specific use case.
 
 
-<a id="orgd984448"></a>
+<a id="org630dd11"></a>
 
 ## `%%IMAGE%%:<version>`
 
@@ -129,15 +129,17 @@ These images contain the quicklisp installer, located at `/usr/local/share/commo
 -   **`QUICKLISP_CLIENT_VERSION`:** The client version to use. Of the form yyyy-mm-dd. `latest` means to install the latest version (the default).
 -   **`QUICKLISP_ADD_TO_INIT_FILE`:** If set to `true`, `(ql:add-to-init-file)` is used to add code to the implementation's user init file to load Quicklisp on startup. Not set by default.
 
+Additionally, these images contain cl-launch to provide a uniform interface to running a Lisp implementation without caring exactly which implementation is being used (for instance to have uniform CI scripts).
 
-<a id="org61a3189"></a>
+
+<a id="org647d810"></a>
 
 ## `%%IMAGE%%:<version>-slim`
 
 This image does not contain the common packages contained in the default tag and only contains the minimal packages needed to run ABCL. Unless you are working in an environment where only this image will be deployed and you have space constraints, we highly recommend using the default image of this repository.
 
 
-<a id="org4b0cc43"></a>
+<a id="org3cb48b6"></a>
 
 ## `%%IMAGE%%:<version>-windowsservercore`
 
@@ -149,7 +151,7 @@ For information about how to get Docker running on Windows, please see the relev
 -   [Windows 10 Quick Start](https://msdn.microsoft.com/en-us/virtualization/windowscontainers/quick_start/quick_start_windows_10)
 
 
-<a id="org6e67466"></a>
+<a id="orgcf4053d"></a>
 
 # License
 
