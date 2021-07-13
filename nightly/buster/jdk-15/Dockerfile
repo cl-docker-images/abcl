@@ -78,7 +78,7 @@ ENV MAVEN_HOME /usr/share/maven
 
 # Now install ABCL
 
-ENV ABCL_COMMIT 14eb7dac59e534a9b9ad84cb50a713e5d2ce23dc
+ENV ABCL_COMMIT a349faeaeda5847ad307f9920e1d806e16690c97
 
 WORKDIR /usr/local/src/
 
