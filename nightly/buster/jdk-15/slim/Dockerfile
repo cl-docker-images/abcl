@@ -5,7 +5,7 @@
 #
 FROM openjdk:15-jdk-slim-buster
 
-ENV ABCL_COMMIT de2941ceb82b5dd5c37c84e2af0b50cb2a0795e2
+ENV ABCL_COMMIT 1d9020eb80d0e03975a5c89052902811b7aa4c80
 
 WORKDIR /usr/local/src/
 
