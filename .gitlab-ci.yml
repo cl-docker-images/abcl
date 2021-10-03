@@ -1,25 +1,10 @@
 include:
+  - local: '/.gitlab-ci.config.yml'
   - project: 'cl-docker-images/ci-helpers'
-    file: '/cl-docker-images-default-pipeline-v2.yml'
+    file: '/cl-docker-images-default-pipeline-v3.yml'
 
 variables:
   CL_DOCKER_IMAGES_AMD64: "1"
   CL_DOCKER_IMAGES_ARM64V8: "1"
   CL_DOCKER_IMAGES_WINAMD64: "1"
   WINDOWS_PARENT_IMAGES: "openjdk:15-windowsservercore-1809;openjdk:11-windowsservercore-1809;openjdk:8-windowsservercore-1809;openjdk:15-windowsservercore-ltsc2016;openjdk:11-windowsservercore-ltsc2016;openjdk:8-windowsservercore-ltsc2016"
-
-##############################################################################
-# Put shared
-
-put-shared clfoundation:
-  extends: Bashbrew put-shared
-  variables:
-    BASHBREW_NAMESPACE: clfoundation
-
-##############################################################################
-# Readme
-
-Pushrm clfoundation:
-  extends: Pushrm
-  variables:
-    README_NAMESPACE: clfoundation
