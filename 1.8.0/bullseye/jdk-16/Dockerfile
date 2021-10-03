@@ -63,7 +63,7 @@ RUN set -ex; \
 # because the maven image only follows openjdk's default OS choice and does not
 # provide Debian based images for jdk12+.
 
-ARG MAVEN_VERSION=3.8.2
+ARG MAVEN_VERSION=3.8.3
 ARG MAVEN_SHA=b0bf39460348b2d8eae1c861ced6c3e8a077b6e761fb3d4669be5de09490521a74db294cf031b0775b2dfcd57bd82246e42ce10904063ef8e3806222e686f222
 
 WORKDIR /usr/share/maven
