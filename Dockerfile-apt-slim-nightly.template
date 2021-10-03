@@ -9,7 +9,7 @@ RUN set -x \
     && apt-get update \
     && apt-get install --no-install-recommends -y curl gnupg dirmngr \
     # Install ant
-    && ANT_VERSION="1.10.9" \
+    && ANT_VERSION="1.10.11" \
     && curl -fsSL "https://mirrors.gigenet.com/apache/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz" > "ant-$ANT_VERSION.tar.gz" \
     && tar xf "ant-$ANT_VERSION.tar.gz" \
     && PATH="/usr/local/src/apache-ant-$ANT_VERSION/bin:$PATH" \

@@ -79,7 +79,7 @@ WORKDIR /usr/local/src/
 
 RUN set -x \
     # Install ant
-    && ANT_VERSION="1.10.9" \
+    && ANT_VERSION="1.10.11" \
     && curl -fsSL "https://mirrors.gigenet.com/apache/ant/binaries/apache-ant-$ANT_VERSION-bin.tar.gz" > "ant-$ANT_VERSION.tar.gz" \
     && tar xf "ant-$ANT_VERSION.tar.gz" \
     && PATH="/usr/local/src/apache-ant-$ANT_VERSION/bin:$PATH" \
