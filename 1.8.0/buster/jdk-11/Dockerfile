@@ -61,10 +61,10 @@ RUN set -ex; \
 # Install Maven as it is commonly used with ABCL, including with anything that
 # uses CFFI. We install it ourselves instead of basing the image off of maven
 # because the maven image only follows openjdk's default OS choice and does not
-# provide buster based images for jdk12+.
+# provide Debian based images for jdk12+.
 
-ARG MAVEN_VERSION=3.6.3
-ARG MAVEN_SHA=c35a1803a6e70a126e80b2b3ae33eed961f83ed74d18fcd16909b2d44d7dada3203f1ffe726c17ef8dcca2dcaa9fca676987befeadc9b9f759967a8cb77181c0
+ARG MAVEN_VERSION=3.8.2
+ARG MAVEN_SHA=b0bf39460348b2d8eae1c861ced6c3e8a077b6e761fb3d4669be5de09490521a74db294cf031b0775b2dfcd57bd82246e42ce10904063ef8e3806222e686f222
 
 WORKDIR /usr/share/maven
 
@@ -91,7 +91,7 @@ RUN set -x \
     && curl -fsSL "https://abcl.org/releases/${ABCL_VERSION}/abcl-src-${ABCL_VERSION}.tar.gz.asc" > "abcl-src-${ABCL_VERSION}.tar.gz.asc" \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
-    && gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "${ABCL_SIGNING_KEY}" \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${ABCL_SIGNING_KEY}" \
     && gpg --batch --verify "abcl-bin-${ABCL_VERSION}.tar.gz.asc" "abcl-bin-${ABCL_VERSION}.tar.gz" \
     && gpg --batch --verify "abcl-src-${ABCL_VERSION}.tar.gz.asc" "abcl-src-${ABCL_VERSION}.tar.gz" \
     && gunzip "abcl-bin-${ABCL_VERSION}.tar.gz" \
@@ -114,7 +114,7 @@ RUN set -x \
     && curl -fsSL "https://beta.quicklisp.org/quicklisp.lisp.asc" > quicklisp.lisp.asc \
     && GNUPGHOME="$(mktemp -d)" \
     && export GNUPGHOME \
-    && gpg --batch --keyserver ha.pool.sks-keyservers.net --recv-keys "${QUICKLISP_SIGNING_KEY}" \
+    && gpg --batch --keyserver keyserver.ubuntu.com --recv-keys "${QUICKLISP_SIGNING_KEY}" \
     && gpg --batch --verify "quicklisp.lisp.asc" "quicklisp.lisp" \
     && rm quicklisp.lisp.asc \
     && rm -rf "$GNUPGHOME"

@@ -3,7 +3,7 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM openjdk:11-jdk-slim-buster
+FROM openjdk:16-jdk-slim-buster
 
 ENV ABCL_VERSION 1.8.0
 

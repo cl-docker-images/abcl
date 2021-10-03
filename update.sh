@@ -3,6 +3,10 @@ set -Eeuo pipefail
 
 cd "$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
+declare -A refs=(
+    [1.8.1]='master'
+)
+
 versions=( "$@" )
 
 generated_warning() {
@@ -17,7 +21,7 @@ EOH
 
 for version in "${versions[@]}"; do
 
-    if [ "$version" = "nightly" ]; then
+    if [[ $version = *rc ]]; then
         abclGitSha="$(curl -fsSL https://api.github.com/repos/armedbear/abcl/commits/master | jq -r .sha)"
         unset abclBinZipUrl
         unset abclBinZipSha
@@ -28,8 +32,9 @@ for version in "${versions[@]}"; do
     fi
 
     for v in \
-        buster/{jdk-15,jdk-11,jdk-8}/{,slim} \
-        windowsservercore-{1809,ltsc2016}/{jdk-15,jdk-11,jdk-8}/ \
+        bullseye/{jdk-16,jdk-11,jdk-8}/{,slim} \
+        buster/{jdk-16,jdk-11,jdk-8}/{,slim} \
+        windowsservercore-{1809,ltsc2016}/{jdk-16,jdk-11,jdk-8}/ \
     ; do
         os="${v%%/*}"
         javaVariant="${v%/*}"
@@ -46,14 +51,14 @@ for version in "${versions[@]}"; do
 
         dir="$version/$v"
 
-        if [ "$version" = "nightly" ] && [[ "$os" == "windowsservercore"* ]]; then
+        if [[ $version == *rc ]] && [[ "$os" == "windowsservercore"* ]]; then
             continue
         fi
 
         mkdir -p "$dir"
 
         case "$os" in
-            buster)
+            bullseye|buster)
                 template="apt$variantTag"
                 cp "abcl-wrapper-jdk$javaVersion" "$dir/abcl-wrapper"
                 cp docker-entrypoint.sh "$dir/docker-entrypoint.sh"
@@ -67,7 +72,7 @@ for version in "${versions[@]}"; do
                 ;;
         esac
 
-        if [ "$version" = "nightly" ]; then
+        if [[ $version == *rc ]]; then
             template="$template-nightly"
         fi
 
@@ -76,7 +81,7 @@ for version in "${versions[@]}"; do
 
         { generated_warning; cat "$template"; } > "$dir/Dockerfile"
 
-        if [ "$version" = "nightly" ]; then
+        if [[ $version == *rc ]]; then
             sed -ri \
                 -e 's/^(FROM) .*/\1 '"openjdk:$tag"'/' \
                 -e 's/^(ENV ABCL_COMMIT) .*/\1 '"$abclGitSha"'/' \

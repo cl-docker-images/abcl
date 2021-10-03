@@ -1,4 +1,9 @@
-FROM PLACEHOLDER
+#
+# NOTE: THIS DOCKERFILE IS GENERATED VIA "update.sh"
+#
+# PLEASE DO NOT EDIT IT DIRECTLY.
+#
+FROM openjdk:8-jdk-bullseye
 
 # Install the packages that buildpack-deps adds on top of
 # buildpack-deps:scm. This is a bit odd for a JVM based image, but the CFFI
@@ -73,7 +78,7 @@ ENV MAVEN_HOME /usr/share/maven
 
 # Now install ABCL
 
-ENV ABCL_VERSION PLACEHOLDER
+ENV ABCL_VERSION 1.7.1
 
 WORKDIR /usr/local/share/
 

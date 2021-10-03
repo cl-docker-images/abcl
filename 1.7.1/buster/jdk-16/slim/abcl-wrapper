@@ -1,0 +1,7 @@
+#!/bin/sh
+
+exec java -cp "/usr/local/share/abcl/abcl.jar:$CLASSPATH" \
+     -XshowSettings:vm -Dfile.encoding=UTF-8 \
+     -XX:CompileThreshold=10 \
+     org.armedbear.lisp.Main \
+     "$@"

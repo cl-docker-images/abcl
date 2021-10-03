@@ -3,9 +3,9 @@
 #
 # PLEASE DO NOT EDIT IT DIRECTLY.
 #
-FROM openjdk:11-jdk-slim-buster
+FROM openjdk:8-jdk-slim-bullseye
 
-ENV ABCL_VERSION 1.8.0
+ENV ABCL_VERSION 1.7.1
 
 WORKDIR /usr/local/share/
 

@@ -6,23 +6,22 @@ declare -A aliases=(
     [1.7.1]='1.7'
 )
 
-defaultDebianSuite='buster'
-defaultJavaVersion='15'
+defaultDebianSuite='bullseye'
+defaultJavaVersion='16'
 
 self="$(basename "$BASH_SOURCE")"
 cd "$(dirname "$(readlink -f "$BASH_SOURCE")")"
 
-if [ "${1-unset}" = "nightly" ]; then
-    versions=( nightly )
-    aliases[nightly]="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3 | head -c 7)"
+if [ "${1-unset}" = "rc" ]; then
+    versions=( *rc/ )
+    versions=( "${versions[@]%/}" )
 elif [ "${1-unset}" = "all" ]; then
     versions=( */ )
     versions=( "${versions[@]%/}" )
-    aliases[nightly]="$(grep -e "^ENV ABCL_COMMIT" nightly/buster/jdk-11/Dockerfile | cut -d" " -f 3 | head -c 7)"
 else
     versions=( */ )
     versions=( "${versions[@]%/}" )
-    versions=( "${versions[@]/nightly}" )
+    versions=( "${versions[@]%%*rc}" )
 fi
 
 # sort version numbers with highest first
@@ -82,8 +81,9 @@ join() {
 for version in "${versions[@]}"; do
 
     for v in \
-        buster/{jdk-15,jdk-11,jdk-8}/{,slim} \
-        windowsservercore-{1809,ltsc2016}/{jdk-15,jdk-11,jdk-8}/ \
+        bullseye/{jdk-16,jdk-11,jdk-8}/{,slim} \
+        buster/{jdk-16,jdk-11,jdk-8}/{,slim} \
+        windowsservercore-{1809,ltsc2016}/{jdk-16,jdk-11,jdk-8}/ \
     ; do
         os="${v%%/*}"
         javaVariant="${v%/*}"
@@ -100,7 +100,7 @@ for version in "${versions[@]}"; do
 
         dir="$version/$v"
 
-        if [ "$version" = "nightly" ] && [[ "$os" == "windowsservercore"* ]]; then
+        if [[ $version == *rc ]] && [[ "$os" == "windowsservercore"* ]]; then
             continue
         fi
 
